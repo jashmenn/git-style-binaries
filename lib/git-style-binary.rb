@@ -1,5 +1,5 @@
 module GitStyleBinary
-# If set to false GitStyleBinary will not automatically run at exit.
+  # If set to false GitStyleBinary will not automatically run at exit.
   def self.run=(flag)
     @run = flag
   end
