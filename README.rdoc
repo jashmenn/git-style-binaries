@@ -1,0 +1,7 @@
+= git-style-binaries
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Nate Murray. See LICENSE for details.
