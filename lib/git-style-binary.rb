@@ -1,15 +1,19 @@
+require 'trollop'
+require 'git-style-binary/autorunner'
+
 module GitStyleBinary
-  # If set to false GitStyleBinary will not automatically run at exit.
-  def self.run=(flag)
-    @run = flag
-  end
-
-  # Automatically run at exit?
-  def self.run?
-    @run ||= false
-  end
-
+ 
   class << self
+   # If set to false GitStyleBinary will not automatically run at exit.
+    def run=(flag)
+      @run = flag
+    end
+
+    # Automatically run at exit?
+    def run?
+      @run ||= false
+    end
+
     # def list_binaries_for(ty)
     #   available_binaries_for(ty).join(", ")
     # end
