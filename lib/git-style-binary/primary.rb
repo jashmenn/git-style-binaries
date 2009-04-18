@@ -2,15 +2,14 @@ require 'git-style-binary'
 require 'git-style-binary/command'
 
 module GitStyleBinary
-  def self.primary(base_name=nil, &block)
-    base_name ||= self.base_name
-    p base_name
+  def self.primary(basename=nil, &block)
+    basename ||= self.basename # ? 
     self.add_constraint(&block)
   end
 
   def self.populate_defaults
     self.primary do
-      version "#{$0} 0.0.1 (c) 2009 Nate Murray"
+      version "#{File.basename($0)} 0.0.1 (c) 2009 Nate Murray"
     #   banner <<-EOS
     # usage: #{$0} #{all_options.collect(:&to_s).join(" ")} COMMAND [ARGS]
     

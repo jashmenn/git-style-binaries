@@ -37,7 +37,9 @@ class AutoRunner
 
   # returns exit code
   def run
-    GitStyleBinary.populate_defaults
+    populate_defaults
+    load_parser_constraints
+
     puts "hi i ran!"
     p parser
     # result.run(@suite, @output_level).passed?
@@ -46,6 +48,16 @@ class AutoRunner
 
   def parser
     GitStyleBinary.parser
+  end
+
+  def populate_defaults
+    GitStyleBinary.populate_defaults
+  end
+
+  def load_parser_constraints
+    GitStyleBinary.constraints.each do |c_block|
+      parser.consume(&c_block)
+    end
   end
 
 end
