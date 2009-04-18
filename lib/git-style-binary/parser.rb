@@ -1,10 +1,20 @@
 module GitStyleBinary
 class Parser < Trollop::Parser
 
+  def initialize *a, &b
+    super
+  end
+
+  # def banner s=nil; @banner = lambda{s} if s; @banner end
   def banner s=nil; @banner = s if s; @banner end
 
   ## Adds text to the help display.
   def text s; @order << [:text, s] end
+
+
+  def spec_names
+    @specs.collect{|name, spec| spec[:long]}
+  end
 
   ## Print the help message to 'stream'.
   def educate stream=$stdout
@@ -32,7 +42,7 @@ class Parser < Trollop::Parser
 
     unless @order.size > 0 && @order.first.first == :text
       stream.puts "#@version\n" if @version
-      stream.puts "#@banner\n" if @banner
+      stream.puts eval %Q["#{@banner}"] + "\n" if @banner # lazy banner
       stream.puts "Options:"
     else
       stream.puts "#@banner\n" if @banner
