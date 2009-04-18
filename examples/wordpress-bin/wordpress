@@ -7,7 +7,9 @@ require 'git-style-binary/primary'
 
 # OR
 
-# command = GitStyleBinary::primary
+command = GitStyleBinary::primary do
+  banner "local banner"
+end
 
 # OR
 
