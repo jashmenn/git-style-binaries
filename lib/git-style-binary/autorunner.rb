@@ -6,7 +6,7 @@ class AutoRunner
 
   def self.run(argv=ARGV, &block)
     r = new(&block)
-    r.process_args(argv)
+    # r.process_args(argv)
     r.run
   end
 
@@ -14,32 +14,38 @@ class AutoRunner
     @spec_block = block
   end
 
-  def process_args(args = ARGV, *a, &b)
-    b ||= @spec_block
-    @p = Parser.new(*a, &b)
-    begin
-      vals = @p.parse args
-      args.clear
-      @p.leftovers.each { |l| args << l }
-      vals
-    rescue Trollop::CommandlineError => e
-      $stderr.puts "Error: #{e.message}."
-      $stderr.puts "Try --help for help."
-      exit(-1)
-    rescue Trollop::HelpNeeded
-      @p.educate
-      exit
-    rescue Trollop::VersionNeeded
-      puts @p.version
-      exit
-    end
-  end
+  # def process_args(args = ARGV, *a, &b)
+  #   b ||= @spec_block
+  #   @p = Parser.new(*a, &b)
+  #   begin
+  #     vals = @p.parse args
+  #     args.clear
+  #     @p.leftovers.each { |l| args << l }
+  #     vals
+  #   rescue Trollop::CommandlineError => e
+  #     $stderr.puts "Error: #{e.message}."
+  #     $stderr.puts "Try --help for help."
+  #     exit(-1)
+  #   rescue Trollop::HelpNeeded
+  #     @p.educate
+  #     exit
+  #   rescue Trollop::VersionNeeded
+  #     puts @p.version
+  #     exit
+  #   end
+  # end
 
   # returns exit code
   def run
+    GitStyleBinary.populate_defaults
     puts "hi i ran!"
+    p parser
     # result.run(@suite, @output_level).passed?
     0
+  end
+
+  def parser
+    GitStyleBinary.parser
   end
 
 end

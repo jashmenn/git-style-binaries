@@ -14,6 +14,23 @@ module GitStyleBinary
       @run ||= false
     end
 
+    def constraints
+      @constraints ||= []
+    end
+
+    def add_constraint(&block)
+      @constraints ||= []
+      @constraints << block
+    end
+
+    def parser
+      @p ||= Parser.new
+    end
+
+    def basename(filename=$0)
+      @basename ||= File.basename(filename).match(/(.*)\-?/).captures.first
+    end
+
     # def list_binaries_for(ty)
     #   available_binaries_for(ty).join(", ")
     # end

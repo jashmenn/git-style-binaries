@@ -66,6 +66,8 @@ Inspiration from Ari Lerner's git-style-binaries for poolparty.rb [http://blog.x
 ## NOTES
 Each cmd should only have one banner. You don't need/want to have the primary banner for the command. Reflect that in the banner method.
 
+
+
 ## Copyright
 
 Copyright (c) 2009 Nate Murray. See LICENSE for details.

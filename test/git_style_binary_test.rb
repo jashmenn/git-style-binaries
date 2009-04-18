@@ -1,7 +1,10 @@
-require 'test_helper'
+require File.dirname(__FILE__) + "/test_helper.rb"
 
 class GitStyleBinariesTest < Test::Unit::TestCase
-  should "probably rename this file and start testing for real" do
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+  context "parsing basenames" do
+    should "accurately parse basenames" do
+      assert_equal "wordpress", GitStyleBinary.basename("bin/wordpress")
+      assert_equal "wordpress", GitStyleBinary.basename("bin/wordpress-post")
+    end
   end
 end

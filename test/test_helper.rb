@@ -4,7 +4,9 @@ require 'shoulda'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'git_style_binaries'
+
+require 'git-style-binary'
+GitStyleBinary.run = true
 
 class Test::Unit::TestCase
 end
