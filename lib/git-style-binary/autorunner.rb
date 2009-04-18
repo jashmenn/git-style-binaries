@@ -2,16 +2,10 @@ require 'git-style-binary/parser'
 
 module GitStyleBinary
 class AutoRunner
-  attr_accessor :spec_block
 
-  def self.run(argv=ARGV, &block)
-    r = new(&block)
-    # r.process_args(argv)
+  def self.run(argv=ARGV)
+    r = new
     r.run
-  end
-
-  def initialize(&block)
-    @spec_block = block
   end
 
   # returns exit code
