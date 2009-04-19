@@ -76,6 +76,10 @@ class Parser < Trollop::Parser
   def bin_name
     File.basename($0)
   end
+
+  def all_options_string
+    '#{spec_names.collect(&:to_s).collect{|name| "[--" + name + "]"}.join(" ")} COMMAND [ARGS]'
+  end
  
 end
 end
