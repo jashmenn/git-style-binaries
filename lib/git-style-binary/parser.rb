@@ -11,7 +11,6 @@ class Parser < Trollop::Parser
   ## Adds text to the help display.
   def text s; @order << [:text, s] end
 
-
   def spec_names
     @specs.collect{|name, spec| spec[:long]}
   end
@@ -39,15 +38,13 @@ class Parser < Trollop::Parser
     leftcol_width = left.values.map { |s| s.length }.max || 0
     rightcol_start = leftcol_width + 6 # spaces
 
-
     unless @order.size > 0 && @order.first.first == :text
       stream.puts "#@version\n" if @version
-      stream.puts eval %Q["#{@banner}"] + "\n" if @banner # lazy banner
+      stream.puts eval(%Q["#{@banner}"]) + "\n" if @banner # lazy banner
       stream.puts "Options:"
     else
       stream.puts "#@banner\n" if @banner
     end
-
 
     @order.each do |what, opt|
       if what == :text

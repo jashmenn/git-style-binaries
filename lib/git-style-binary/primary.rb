@@ -11,11 +11,12 @@ module GitStyleBinary
     self.primary do
       version "#{File.basename($0)} 0.0.1 (c) 2009 Nate Murray"
 
+      # lazily collect the options
       banner <<-EOS
 Usage: #{$0} \#{spec_names.collect(&:to_s).collect{|name| '[--' + name + ']'}.join(" ")} COMMAND [ARGS]
 
 The wordpress subcommands commands are:
-{subcommands.pretty_print}
+#{GitStyleBinary.list_subcommands}
 
 See 'wordpress help COMMAND' for more information on a specific command.
     EOS

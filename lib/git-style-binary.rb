@@ -32,15 +32,20 @@ module GitStyleBinary
       @basename ||= File.basename(filename).match(/(.*)\-?/).captures.first
     end
 
-    # def list_binaries_for(ty)
-    #   available_binaries_for(ty).join(", ")
-    # end
-    # def available_binaries_for(ty)
-    #   Dir["#{binary_directory}/#{ty}-*"].map {|a| File.basename(a.gsub(/#{ty}-/, '')) }.sort
-    # end
-    # def binary_directory
-    #   "#{::File.dirname(__FILE__)}/../../bin"
-    # end
+    # checks the bin directory for all files starting with +basename+ and
+    # returns an array of strings specifying the subcommands
+    def subcommands(filename=$0)
+      subfiles = Dir[File.join(binary_directory, basename + "-*")]
+      subfiles.collect{|file| File.basename(file).sub(/^#{basename}-/, '')}.sort
+    end
+
+    def binary_directory(filename=$0)
+      File.dirname(filename)
+    end
+
+    def list_subcommands(filename=$0)
+      subcommands(filename).join(", ")
+    end
   end
 
 end
