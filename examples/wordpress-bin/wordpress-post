@@ -17,7 +17,7 @@ end
 command.die :type, "type must be one of [html|xhtml|text]" unless command.opts[:type] =~ /^(x?html|text)$/i
 
 puts "Global options:      #{command.global_opts.inspect}"
-puts "Subcommand name:     #{command.cmd.inspect}"
-puts "Subcommand options:  #{command.cmd_opts.inspect}"
+puts "Subcommand name:     #{command.name.inspect}"
+puts "Subcommand options:  #{command.subcmd_opts.inspect}"
 puts "Merged opts:         #{command.opts.inspect}"
 puts "Remaining arguments: #{command.argv.inspect}"

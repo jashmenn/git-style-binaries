@@ -70,6 +70,9 @@ Copyright (c) 2009 Nate Murray. See LICENSE for details.
 ## TODO
 * short descriptions for `primary --help`
 * long help for `primary help subcommand`
-* running a subcommand
+* running a subcommand binary directly
+* running a subcommand, space separated
+* color
+* tab completion
 
 ## NOTES

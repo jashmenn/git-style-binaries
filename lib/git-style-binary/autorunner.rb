@@ -12,8 +12,9 @@ class AutoRunner
   def run
     populate_defaults
     load_parser_constraints
-    process_args
-    0
+    args = process_args
+    GitStyleBinary.run = true
+    args
   end
 
   def process_args(args = ARGV, *a, &b)
