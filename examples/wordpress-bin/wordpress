@@ -7,12 +7,14 @@ require 'git-style-binary/primary'
 
 # OR
 
-# command = GitStyleBinary::primary do
-#   banner "local banner"
-# end
+require 'git-style-binary/primary'
+command = GitStyleBinary::primary do
+  version "#{File.basename($0)} 0.0.1 (c) 2009 Nate Murray - local"
+end
 
 # OR
 
+# require 'git-style-binary/primary'
 # command = GitStyleBinary::primary("wordpress") do
 #   version "#{$0} 0.0.1 (c) 2009 Nate Murray"
 #   banner <<-EOS

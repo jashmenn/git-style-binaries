@@ -8,7 +8,7 @@ module GitStyleBinary
   end
 
   def self.populate_defaults
-    self.primary do
+    self.unshift_constraint do
         
       version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
 
