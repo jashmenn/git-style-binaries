@@ -9,16 +9,17 @@ module GitStyleBinary
 
   def self.populate_defaults
     self.primary do
-      version "#{File.basename($0)} 0.0.1 (c) 2009 Nate Murray"
+        
+      version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
 
-      # lazily collect the options
+      # todo, collect the subcommands short description
       banner <<-EOS
-Usage: #{$0} \#{spec_names.collect(&:to_s).collect{|name| '[--' + name + ']'}.join(" ")} COMMAND [ARGS]
+Usage: #{bin_name} \#{spec_names.collect(&:to_s).collect{|name| '[--' + name + ']'}.join(" ")} COMMAND [ARGS]
 
 The wordpress subcommands commands are:
-#{GitStyleBinary.list_subcommands}
+   #{GitStyleBinary.subcommands.join("\n   ")}
 
-See 'wordpress help COMMAND' for more information on a specific command.
+See '#{bin_name} help COMMAND' for more information on a specific command.
     EOS
       opt :verbose,  "verbose", :default => false
     #   opt :dry,      "dry run", :default => false

@@ -36,7 +36,9 @@ module GitStyleBinary
     # returns an array of strings specifying the subcommands
     def subcommands(filename=$0)
       subfiles = Dir[File.join(binary_directory, basename + "-*")]
-      subfiles.collect{|file| File.basename(file).sub(/^#{basename}-/, '')}.sort
+      cmds = subfiles.collect{|file| File.basename(file).sub(/^#{basename}-/, '')}.sort
+      cmds << "help" unless @no_help
+      cmds
     end
 
     def binary_directory(filename=$0)

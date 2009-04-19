@@ -72,6 +72,10 @@ class Parser < Trollop::Parser
   def consume(&block)
     cloaker(&block).bind(self).call
   end
+
+  def bin_name
+    File.basename($0)
+  end
  
 end
 end
