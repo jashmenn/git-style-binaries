@@ -1,5 +1,4 @@
 require 'git-style-binary'
-require 'git-style-binary/command'
 
 module GitStyleBinary
   def self.primary(basename=nil, &block)

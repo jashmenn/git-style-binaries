@@ -13,8 +13,9 @@ class AutoRunner
     populate_defaults
     load_parser_constraints
     args = process_args
+    c = Command.new(:opts => args, :argv => ARGV)
     GitStyleBinary.run = true
-    args
+    c
   end
 
   def process_args(args = ARGV, *a, &b)

@@ -1,6 +1,8 @@
 require 'trollop'
 require 'lib/ext/core'
 require 'git-style-binary/autorunner'
+require 'git-style-binary/command'
+require 'git-style-binary/primary'
 
 module GitStyleBinary
  
