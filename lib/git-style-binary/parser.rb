@@ -80,6 +80,10 @@ class Parser < Trollop::Parser
   def all_options_string
     '#{spec_names.collect(&:to_s).collect{|name| "[--" + name + "]"}.join(" ")} COMMAND [ARGS]'
   end
+
+  def run(&block)
+    # todo
+  end
  
 end
 end

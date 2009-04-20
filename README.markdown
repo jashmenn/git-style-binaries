@@ -76,3 +76,13 @@ Copyright (c) 2009 Nate Murray. See LICENSE for details.
 * tab completion
 
 ## NOTES
+
+## To Test
+* primary listing subcommands
+* secondary listing primary options
+* 0 exit status
+* testing loading basic with no customizations on primary
+* primary 'run' block
+* secondary 'run' block
+* secondary options are created
+

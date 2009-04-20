@@ -1,10 +1,8 @@
 require 'git-style-binary'
-require 'git-style-binary/primary'
-require 'git-style-binary/command'
 
 module GitStyleBinary
-  def self.command(basename=nil, &block)
-    basename ||= GitStyleBinary.basename # ? 
+  def self.command(&block)
+    load_primary 
     self.add_constraint(&block)
     command = GitStyleBinary::AutoRunner.run
   end
