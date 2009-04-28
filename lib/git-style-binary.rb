@@ -72,7 +72,6 @@ module GitStyleBinary
 
     def populate_defaults
       self.unshift_constraint do
-          
         version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
 
         # todo, collect the subcommands short description
@@ -84,7 +83,10 @@ The wordpress subcommands commands are:
 
 See '#{bin_name} help COMMAND' for more information on a specific command.
       EOS
+
         opt :verbose,  "verbose", :default => false
+
+        # right here, put in the stops
       end
     end
 
