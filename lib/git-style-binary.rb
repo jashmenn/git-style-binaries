@@ -76,6 +76,13 @@ module GitStyleBinary
       current.sub(/^#{basename}-/, '')
     end
 
+    # returns the command name with the prefix if needed
+    def full_current_command_name(filename=$0,argv=ARGV)
+      cur = current_command_name(filename, argv)
+      subcmd = cur == basename(filename) ? false : true # is this a subcmd?
+      "%s%s%s" % [basename(filename), subcmd ? "-" : "", subcmd ? current_command_name(filename, argv) : ""]
+    end
+
     def valid_subcommand?(name)
       subcommands.include?(name)
     end
