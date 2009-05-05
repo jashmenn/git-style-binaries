@@ -64,6 +64,10 @@ module GitStyleBinary
       end
     end
 
+    def binary_filename_for(name)
+      File.join(binary_directory, "#{basename}-#{name}") 
+    end
+
     def current_command_name(filename=$0,argv=ARGV)
       current = File.basename($0)
       first_arg = ARGV[0]

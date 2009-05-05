@@ -10,22 +10,38 @@ class AutoRunner
 
   # returns exit code
   def run
-    populate_defaults
-    load_parser_constraints
-    args = process_args
-    c = Command.new(:opts => args, :argv => ARGV, :name => GitStyleBinary.current_command_name)
-    GitStyleBinary.run = true
-    c
+    unless GitStyleBinary.run?
+      GitStyleBinary.run = true # maybe mv to bottom
+      populate_defaults
+      load_parser_constraints
+      args = process_args_with_subcmd
+      c = Command.new(:opts => args, :argv => ARGV, :name => GitStyleBinary.current_command_name)
+      parser.runs.first.call(c) # ... not too happy with this
+      c
+    else
+      parser.consume(&GitStyleBinary.constraints.last)
+    end
+  end
+
+  def process_args_with_subcmd(args = ARGV, *a, &b)
+    cmd = GitStyleBinary.current_command_name
+    vals = process_args(args, *a, &b)
+    if parser.leftovers.size > 0 && parser.leftovers.first == cmd
+      parser.leftovers.shift 
+      load GitStyleBinary.binary_filename_for(cmd) # uh nope. doesn't work
+      vals = process_args parser.leftovers
+    end
+    vals
   end
 
   def process_args(args = ARGV, *a, &b)
-    # stop_word of current command name?
     p = parser
+    p.stop_on GitStyleBinary.current_command_name
     begin
       vals = p.parse args
       args.clear
       p.leftovers.each { |l| args << l }
-      vals
+      vals # ugly todo
     rescue Trollop::CommandlineError => e
       $stderr.puts "Error: #{e.message}."
       $stderr.puts "Try --help for help."

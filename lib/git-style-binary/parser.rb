@@ -4,7 +4,7 @@ class Parser < Trollop::Parser
 
   def initialize *a, &b
     super
-    @runs = {}
+    @runs = []
   end
 
   # def banner s=nil; @banner = lambda{s} if s; @banner end
@@ -90,8 +90,7 @@ class Parser < Trollop::Parser
   # simply 'post' when we load the local block?
   # if you can do do that, then you can have the right run aname  ere
   def run(&block)
-    puts bin_name
-    # todo
+    @runs << block
   end
  
 end

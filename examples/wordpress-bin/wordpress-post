@@ -2,7 +2,9 @@
 $:.unshift(File.dirname(__FILE__) + "/../../lib")
 require 'git-style-binary/command'
 
-command = GitStyleBinary::command do
+GitStyleBinary::command do
+  puts "running post" 
+
   banner <<-EOS
 usage: #{bin_name} #{all_options_string} {content|STDIN} 
 
