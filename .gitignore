@@ -5,3 +5,4 @@ rdoc
 pkg
 .autosession.vim
 .sessions
+.session

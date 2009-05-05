@@ -19,6 +19,7 @@ class AutoRunner
   end
 
   def process_args(args = ARGV, *a, &b)
+    # stop_word of current command name?
     p = parser
     begin
       vals = p.parse args

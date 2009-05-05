@@ -8,10 +8,11 @@ require 'git-style-binary/primary'
 require 'git-style-binary/primary'
 GitStyleBinary::primary do
   version "#{File.basename($0)} 0.0.1 (c) 2009 Nate Murray - local"
+  opt :test_primary, "a primary string option", :type => String
+
   run do |command|
     puts "Primary Options: #{command.opts.inspect}"
   end
-  opt :test_primary, "a primary string option", :type => String
 end
 
 # OR

@@ -64,10 +64,16 @@ module GitStyleBinary
       end
     end
 
-    def current_command_name
+    def current_command_name(filename=$0,argv=ARGV)
       current = File.basename($0)
+      first_arg = ARGV[0]
+      return first_arg if valid_subcommand?(first_arg)
       return basename if basename == current
       current.sub(/^#{basename}-/, '')
+    end
+
+    def valid_subcommand?(name)
+      subcommands.include?(name)
     end
 
     def populate_defaults

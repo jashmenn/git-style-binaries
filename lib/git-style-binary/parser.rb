@@ -1,8 +1,10 @@
 module GitStyleBinary
 class Parser < Trollop::Parser
+  attr_reader :runs
 
   def initialize *a, &b
     super
+    @runs = {}
   end
 
   # def banner s=nil; @banner = lambda{s} if s; @banner end
@@ -73,6 +75,7 @@ class Parser < Trollop::Parser
     cloaker(&block).bind(self).call
   end
 
+  # -- todo
   def bin_name
     File.basename($0)
   end
@@ -81,7 +84,13 @@ class Parser < Trollop::Parser
     '#{spec_names.collect(&:to_s).collect{|name| "[--" + name + "]"}.join(" ")} COMMAND [ARGS]'
   end
 
+  # id like to put all runs in a hash and run whichever one matches the command
+  # name. the problem is the cmd loading. that is to say, how do we get the
+  # name 'wordpress' when we load the global block, and wordpress-post, or
+  # simply 'post' when we load the local block?
+  # if you can do do that, then you can have the right run aname  ere
   def run(&block)
+    puts bin_name
     # todo
   end
  
