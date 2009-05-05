@@ -86,3 +86,8 @@ Copyright (c) 2009 Nate Murray. See LICENSE for details.
 * secondary 'run' block
 * secondary options are created
 
+to get the short descriptions, its almost like you need to load all the
+subcommands and have all the blocks be evaulated into different parsers. then
+you need to to just load values from those specific parsers, but dont load them
+all into the main parser. 
+(same with long descriptions)
