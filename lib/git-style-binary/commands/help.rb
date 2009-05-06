@@ -21,6 +21,7 @@ module GitStyleBinary
             educate_about_command(command.argv.first)
           else
             load_all_commands
+            p [:loaded]
             p GitStyleBinary.known_commands.keys
             educate
           end

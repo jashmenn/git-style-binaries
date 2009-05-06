@@ -29,7 +29,7 @@ module GitStyleBinary
 Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
 
 The wordpress subcommands commands are:
-   #{GitStyleBinary.pretty_known_commands.join("\n   ")}
+   #{GitStyleBinary.subcommand_names.join("\n   ")}
 
 See '#{bin_name} help COMMAND' for more information on a specific command.
         EOS
