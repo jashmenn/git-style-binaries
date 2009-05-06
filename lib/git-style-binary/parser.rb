@@ -76,6 +76,10 @@ class Parser < Trollop::Parser
     cloaker(&block).bind(self).call
   end
 
+  def consume_all(blocks)
+    blocks.each {|b| consume(&b)}
+  end
+
   def bin_name
     GitStyleBinary.full_current_command_name
   end

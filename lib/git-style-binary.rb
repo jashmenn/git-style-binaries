@@ -18,21 +18,21 @@ module GitStyleBinary
       @run ||= false
     end
 
-    def constraints
-      @constraints ||= {}
-    end
+    # def constraints
+    #   @constraints ||= {}
+    # end
 
-    def add_constraint(key, &block)
-      self.constraints
-      @constraints[key] ||= []
-      @constraints[key] << block
-    end
+    # def add_constraint(key, &block)
+    #   self.constraints
+    #   @constraints[key] ||= []
+    #   @constraints[key] << block
+    # end
 
-    def unshift_constraint(key, &block)
-      self.constraints
-      @constraints[key] ||= []
-      @constraints[key].unshift(block)
-    end
+    # def unshift_constraint(key, &block)
+    #   self.constraints
+    #   @constraints[key] ||= []
+    #   @constraints[key].unshift(block)
+    # end
 
     def parser
       @p ||= Parser.new
