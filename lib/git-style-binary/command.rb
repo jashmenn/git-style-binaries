@@ -28,8 +28,8 @@ module GitStyleBinary
           banner <<-EOS
 Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
 
-The wordpress subcommands commands are:
-   #{GitStyleBinary.subcommand_names.join("\n   ")}
+The wordpress subcommands are:
+   \#{GitStyleBinary.pretty_known_subcommands.join("\n   ")}
 
 See '#{bin_name} help COMMAND' for more information on a specific command.
         EOS
@@ -70,9 +70,12 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_all_parser_constraints
-      load_parser_default_constraints
-      load_parser_primary_constraints
-      load_parser_local_constraints
+      @loaded_all_parser_constraints ||= begin
+        load_parser_default_constraints
+        load_parser_primary_constraints
+        load_parser_local_constraints
+        true
+      end
     end
 
     def load_parser_default_constraints
@@ -98,6 +101,10 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       vals = process_args(args, *a, &b)
       parser.leftovers.shift if parser.leftovers[0] == cmd
       vals
+    end
+
+    def process_parser!
+      load_all_parser_constraints
     end
 
     def process_args(args = ARGV, *a, &b)

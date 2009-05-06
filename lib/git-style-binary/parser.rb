@@ -19,8 +19,17 @@ class Parser < Trollop::Parser
     @specs.collect{|name, spec| spec[:long]}
   end
 
+  # should probably be somewhere else
+  def load_all_commands
+    GitStyleBinary.subcommand_names.each do |name|
+      cmd_file = GitStyleBinary.binary_filename_for(name)
+      GitStyleBinary.load_command_file(name, cmd_file)
+    end
+  end
+
   ## Print the help message to 'stream'.
   def educate stream=$stdout
+    load_all_commands
     width # just calculate it now; otherwise we have to be careful not to
           # call this unless the cursor's at the beginning of a line.
 

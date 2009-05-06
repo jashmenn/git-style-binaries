@@ -22,7 +22,7 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "get a list of subcommands" do
-        output_matches /The wordpress subcommands commands are:\n\s*post\s*help/m
+        output_matches /The wordpress subcommands are:\n\s*help\s*post/m
       end
 
       should "have subcommand short descriptions" do

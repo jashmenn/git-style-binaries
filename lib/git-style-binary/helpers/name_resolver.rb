@@ -64,18 +64,12 @@ module Helpers
       $0
     end
 
-    def load_all_commands
-      GitStyleBinary.subcommand_names.each do |name|
-        cmd_file = GitStyleBinary.binary_filename_for(name)
-        GitStyleBinary.load_command_file(name, cmd_file)
-      end
-    end
-
-    def pretty_known_commands
-      load_all_commands
-      p [:known]
-      p GitStyleBinary.known_commands.keys
-      strings = GitStyleBinary.known_commands.collect{|k,cmd| "%15s %s" % [k, cmd.short_desc]}
+    def pretty_known_subcommands
+      GitStyleBinary.known_commands.collect do |k,cmd| 
+        next if k == basename 
+        cmd.process_parser!
+        "%10-s %s" % [k, cmd.short_desc]
+      end.compact.sort
     end
 
   end

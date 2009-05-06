@@ -20,6 +20,7 @@ module GitStyleBinary
           if command.argv.size > 0
             educate_about_command(command.argv.first)
           else
+            # what about the -h flag?
             load_all_commands
             p [:loaded]
             p GitStyleBinary.known_commands.keys
