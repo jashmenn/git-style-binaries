@@ -53,11 +53,16 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def run
-      GitStyleBinary.load_primary unless is_primary?
+      GitStyleBinary.load_primary    unless is_primary?
+      GitStyleBinary.load_subcommand if is_primary? && running_subcommand?
       load_all_parser_constraints
       @opts = process_args_with_subcmd
       call_parser_run_block
       self
+    end
+
+    def running_subcommand?
+      GitStyleBinary.valid_subcommand?(GitStyleBinary.current_command_name)
     end
 
     def load_all_parser_constraints
@@ -75,34 +80,36 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_parser_local_constraints 
-      parser.consume_all(self.constraints) unless self.is_primary?
-    end
-
-    def is_primary?
-      false
+      # parser.consume_all(self.constraints) unless self.is_primary?
+      # p GitStyleBinary.current_command.constraints
+      cur = GitStyleBinary.current_command
+      parser.consume_all(cur.constraints) unless self.is_primary? && cur == self
     end
 
     def call_parser_run_block
       runs = GitStyleBinary.current_command.parser.runs
-      p runs
+      p [:runs, runs]
       parser.runs.last.call(self) # ... not too happy with this
     end
 
     def process_args_with_subcmd(args = ARGV, *a, &b)
       cmd = GitStyleBinary.current_command_name
       vals = process_args(args, *a, &b)
-      if parser.leftovers.size > 0 && parser.leftovers.first == cmd
-        parser.leftovers.shift 
-        puts "loading #{cmd}"
-        load GitStyleBinary.binary_filename_for(cmd)
-        vals = process_args parser.leftovers
-      end
+      parser.leftovers.shift if parser.leftovers[0] == cmd
+      # if parser.leftovers.size > 0 && parser.leftovers.first == cmd
+      #   p parser.leftovers
+      #   parser.leftovers.shift 
+      #   puts "loading #{cmd}"
+      #   load GitStyleBinary.binary_filename_for(cmd)
+
+      #   vals = process_args parser.leftovers
+      # end
       vals
     end
 
     def process_args(args = ARGV, *a, &b)
       p = parser
-      p.stop_on GitStyleBinary.current_command_name
+      # p.stop_on GitStyleBinary.current_command_name
       begin
         vals = p.parse args
         args.clear
@@ -120,6 +127,22 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
         exit
       end
     end
+
+    def is_primary?
+      false
+    end
+
+    def name
+      GitStyleBinary.current_command_name
+    end
+
+    def argv
+      parser.leftovers
+    end
+
+    # def die(*args)
+    #   parser.die(*args)
+    # end
 
   end
 

@@ -30,6 +30,15 @@ module GitStyleBinary
       end
     end
 
+    def load_subcommand
+      unless @loaded_subcommand
+        @loaded_subcommand = true
+        cmd_file = GitStyleBinary.binary_filename_for(GitStyleBinary.current_command_name)
+        p [:loading, cmd_file]
+        load cmd_file
+      end
+    end
+
   end
 end
 

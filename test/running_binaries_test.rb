@@ -108,6 +108,8 @@ class RunningBinariesTest < Test::Unit::TestCase
           end
         end
 
+        should "die on command.die statements"
+
       end # end bin_format
     end # end #each
   end
