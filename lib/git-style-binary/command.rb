@@ -9,6 +9,7 @@ module GitStyleBinary
 
   def self.primary(&block)
     returning Primary.new(:constraints => [block]) do |c|
+      GitStyleBinary.primary_command = c unless GitStyleBinary.primary_command
       GitStyleBinary.current_command = c unless GitStyleBinary.current_command
     end
   end
@@ -36,9 +37,9 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     attr_reader :opts
 
     def initialize(o={})
-      # o.each do |k,v|
-      #   eval "@#{k.to_s}= v"
-      # end
+      o.each do |k,v|
+        eval "@#{k.to_s}= v"
+      end
     end
 
     def parser
@@ -50,6 +51,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def run
+      GitStyleBinary.load_primary unless is_primary?
       load_all_parser_constraints
       @opts = process_args_with_subcmd
       call_parser_run_block
@@ -67,10 +69,10 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_parser_primary_constraints
-      parser.consume_all(GitStyleBinary.primary.constraints)
+      parser.consume_all(GitStyleBinary.primary_command.constraints)
     end
 
-    def load_local_constraints 
+    def load_parser_local_constraints 
       parser.consume_all(self.constraints) unless self.is_primary?
     end
 
@@ -79,7 +81,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def call_parser_run_block
-      # parser.runs.last.call(c) # ... not too happy with this
+      parser.runs.last.call(self) # ... not too happy with this
     end
 
     def process_args_with_subcmd(args = ARGV, *a, &b)

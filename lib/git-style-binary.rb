@@ -8,7 +8,7 @@ module GitStyleBinary
   class << self
     include Helpers::NameResolver
     attr_accessor :current_command
-    attr_accessor :primary
+    attr_accessor :primary_command
 
     # If set to false GitStyleBinary will not automatically run at exit.
     attr_writer :run
