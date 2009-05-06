@@ -51,24 +51,39 @@ class RunningBinariesTest < Test::Unit::TestCase
           setup { @stdout, @stderr = bin("#{bin_format} -h") }
 
           should "have a the primaries version string, except correct binary name" do
-           output_matches /wordpress-post 0\.0\.1 \(c\) 2009 Nate Murray - local/
+             output_matches /wordpress-post 0\.0\.1 \(c\) 2009 Nate Murray - local/
           end
 
           should "have a usage" do
             output_matches "Usage:"
           end
-          should "have a description"
-          should "have options"
+
+          should "have a description" do
+            output_matches /Posts content to a wordpress blog/
+          end
+
+          should "have options" do
+            output_matches /Options:/
+            output_matches /--blog, -b <s>:   short name of the blog to use \(default: default\)/
+            output_matches /--title, -i <s>:   title for the post/
+          end
+
         end
 
         context "with no options" do
           setup { @stdout, @stderr = bin("#{bin_format}") }
-          should "fail because title is required"
+          should "fail because title is required" do
+            output_matches /Error: option 'title' must be specified.\s*Try --help for help/m
+          end
         end
 
         context "with options" do
           setup { @stdout, @stderr = bin("#{bin_format} --title='glendale'") }
-          should "give some nice outpout"
+          should "be running the subcommand's run block" do
+            output_matches /Subcommand name/
+          end
+          should "have some global options"
+          should "have some local options"
         end
 
       end # end bin_format
