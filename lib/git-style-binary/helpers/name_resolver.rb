@@ -19,12 +19,22 @@ module Helpers
       File.dirname(filename)
     end
 
+    def built_in_commands_directory
+      File.dirname(__FILE__) + "/../commands"
+    end
+
     def list_subcommands(filename=zero)
       subcommand_names(filename).join(", ")
     end
 
+    # load first from users binary directory. then load built-in commands if
+    # available
     def binary_filename_for(name)
-      File.join(binary_directory, "#{basename}-#{name}") 
+      user_file = File.join(binary_directory, "#{basename}-#{name}") 
+      return user_file if File.exists?(user_file)
+      built_in = File.join(built_in_commands_directory, "#{name}.rb") 
+      return built_in if File.exists?(built_in)
+      user_file
     end
 
     def current_command_name(filename=zero,argv=ARGV)

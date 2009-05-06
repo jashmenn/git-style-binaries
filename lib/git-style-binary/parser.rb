@@ -88,11 +88,6 @@ class Parser < Trollop::Parser
     '#{spec_names.collect(&:to_s).collect{|name| "[--" + name + "]"}.join(" ")} COMMAND [ARGS]'
   end
 
-  # id like to put all runs in a hash and run whichever one matches the command
-  # name. the problem is the cmd loading. that is to say, how do we get the
-  # name 'wordpress' when we load the global block, and wordpress-post, or
-  # simply 'post' when we load the local block?  if you can do do that, then
-  # you can have the right run here
   def run(&block)
     @runs << block
   end
