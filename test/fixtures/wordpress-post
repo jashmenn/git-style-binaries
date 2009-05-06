@@ -4,7 +4,7 @@ require 'git-style-binary/command'
 
 GitStyleBinary::command do
   banner <<-EOS
-usage: #{bin_name} #{all_options_string} {content|STDIN} 
+Usage: #{bin_name} #{all_options_string} {content|STDIN} 
 
 Posts content to a wordpress blog 
 
