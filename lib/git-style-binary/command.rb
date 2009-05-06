@@ -3,6 +3,9 @@ require 'git-style-binary'
 module GitStyleBinary
   def self.command(&block)
     returning Command.new(:constraints => [block]) do |c|
+      loading_name = GitStyleBinary.name_of_command_being_loaded || c.name
+      GitStyleBinary.known_commands[loading_name] = c
+
       if !GitStyleBinary.current_command || GitStyleBinary.current_command.is_primary?
         GitStyleBinary.current_command = c
       end
@@ -13,6 +16,7 @@ module GitStyleBinary
     returning Primary.new(:constraints => [block]) do |c|
       GitStyleBinary.primary_command = c unless GitStyleBinary.primary_command
       GitStyleBinary.current_command = c unless GitStyleBinary.current_command
+      GitStyleBinary.known_commands[c.name] = c
     end
   end
 
@@ -25,7 +29,7 @@ module GitStyleBinary
 Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
 
 The wordpress subcommands commands are:
-   #{GitStyleBinary.subcommand_names.join("\n   ")}
+   #{GitStyleBinary.pretty_known_commands.join("\n   ")}
 
 See '#{bin_name} help COMMAND' for more information on a specific command.
         EOS
@@ -126,6 +130,10 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
 
     def argv
       parser.leftovers
+    end
+
+    def short_desc 
+      parser.short_desc
     end
 
     # def die(*args)

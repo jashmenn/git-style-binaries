@@ -11,8 +11,8 @@ module Helpers
     def subcommand_names(filename=zero)
       subfiles = Dir[File.join(binary_directory, basename + "-*")]
       cmds = subfiles.collect{|file| File.basename(file).sub(/^#{basename}-/, '')}.sort
-      cmds << "help" unless @no_help
-      cmds
+      cmds += built_in_command_names
+      cmds.uniq
     end
 
     def binary_directory(filename=zero)
@@ -21,6 +21,10 @@ module Helpers
 
     def built_in_commands_directory
       File.dirname(__FILE__) + "/../commands"
+    end
+
+    def built_in_command_names
+      Dir[built_in_commands_directory + "/*.rb"].collect{|f| File.basename(f.sub(/\.rb$/,''))}
     end
 
     def list_subcommands(filename=zero)
@@ -58,6 +62,11 @@ module Helpers
 
     def zero
       $0
+    end
+
+    def pretty_known_commands
+      p GitStyleBinary.known_commands.keys
+      strings = GitStyleBinary.known_commands.collect{|k,cmd| "%15s %s" % [k, cmd.short_desc]}
     end
 
   end

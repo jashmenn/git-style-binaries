@@ -13,7 +13,7 @@ class RunningBinariesTest < Test::Unit::TestCase
   include RunsBinaryFixtures
 
   context "when running primary" do
-    context "and getting help" do
+    context "and getting help as a flag" do
       setup { @stdout, @stderr = bin("wordpress -h") }
 
       should "have a local (not default) version string" do
@@ -33,13 +33,27 @@ class RunningBinariesTest < Test::Unit::TestCase
       should "have a usage" do
         output_matches /Usage: wordpress \[/
       end
-
-      context "as a subcommand" do
-        should "get help on primary"
-        should "get help on subcommands"
-      end
-
     end
+
+    context "and getting help as subcommand" do
+      # ["wordpress-help", "wordpress help"].each do |format|
+      ["wordpress help"].each do |format|
+        context "'#{format}'" do
+
+          context "get help on primary" do
+            setup { @stdout, @stderr = bin(format) }
+            should "" do
+              puts @stdout + @stderr
+            end
+          end
+
+          context "get help on subcommands" do
+            setup { @stdout, @stderr = bin("#{format} post") }
+          end
+        end
+      end
+    end
+
 
     context "with no options" do
       setup { @stdout, @stderr = bin("wordpress") }
