@@ -1,12 +1,13 @@
 require 'trollop'
 require 'lib/ext/core'
 require 'git-style-binary/autorunner'
-# require 'git-style-binary/command'
-# require 'git-style-binary/primary'
+Dir[File.dirname(__FILE__) + "/git-style-binary/helpers/*.rb"].each {|f|  require f}
 
 module GitStyleBinary
  
   class << self
+    include Helpers::NameResolver
+
    # If set to false GitStyleBinary will not automatically run at exit.
     def run=(flag)
       @run = flag
@@ -21,39 +22,18 @@ module GitStyleBinary
       @constraints ||= []
     end
 
-    def add_constraint(&block)
+    def add_constraint(key, &block)
       self.constraints
       @constraints << block
     end
 
-    def unshift_constraint(&block)
+    def unshift_constraint(key, &block)
       self.constraints
       @constraints.unshift(block)
     end
 
     def parser
       @p ||= Parser.new
-    end
-
-    def basename(filename=$0)
-      File.basename(filename).match(/(.*?)(\-|$)/).captures.first
-    end
-
-    # checks the bin directory for all files starting with +basename+ and
-    # returns an array of strings specifying the subcommands
-    def subcommands(filename=$0)
-      subfiles = Dir[File.join(binary_directory, basename + "-*")]
-      cmds = subfiles.collect{|file| File.basename(file).sub(/^#{basename}-/, '')}.sort
-      cmds << "help" unless @no_help
-      cmds
-    end
-
-    def binary_directory(filename=$0)
-      File.dirname(filename)
-    end
-
-    def list_subcommands(filename=$0)
-      subcommands(filename).join(", ")
     end
 
     def load_primary
@@ -64,49 +44,21 @@ module GitStyleBinary
       end
     end
 
-    def binary_filename_for(name)
-      File.join(binary_directory, "#{basename}-#{name}") 
-    end
-
-    def current_command_name(filename=$0,argv=ARGV)
-      current = File.basename($0)
-      first_arg = ARGV[0]
-      return first_arg if valid_subcommand?(first_arg)
-      return basename if basename == current
-      current.sub(/^#{basename}-/, '')
-    end
-
-    # returns the command name with the prefix if needed
-    def full_current_command_name(filename=$0,argv=ARGV)
-      cur = current_command_name(filename, argv)
-      subcmd = cur == basename(filename) ? false : true # is this a subcmd?
-      "%s%s%s" % [basename(filename), subcmd ? "-" : "", subcmd ? current_command_name(filename, argv) : ""]
-    end
-
-    def valid_subcommand?(name)
-      subcommands.include?(name)
-    end
-
     def populate_defaults
-      self.unshift_constraint do
+      self.unshift_constraint(:default) do
         version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
-
-        # todo, collect the subcommands short description
         banner <<-EOS
 Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
 
 The wordpress subcommands commands are:
-   #{GitStyleBinary.subcommands.join("\n   ")}
+   #{GitStyleBinary.subcommand_names.join("\n   ")}
 
 See '#{bin_name} help COMMAND' for more information on a specific command.
       EOS
 
         opt :verbose,  "verbose", :default => false
-
-        # right here, put in the stops
       end
     end
-
 
   end
 
