@@ -3,7 +3,7 @@ $:.unshift(File.dirname(__FILE__) + "/../../lib")
 require 'git-style-binary/command'
 
 GitStyleBinary::command do
-  # short "create a blog post"
+  short_desc "create a blog post"
   banner <<-EOS
 Usage: #{bin_name} #{all_options_string} {content|STDIN} 
 

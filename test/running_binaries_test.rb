@@ -25,14 +25,20 @@ class RunningBinariesTest < Test::Unit::TestCase
         output_matches /The wordpress subcommands commands are:\n\s*post\s*help/m
       end
 
-      # should "have subcommand short descriptions" do
-      #   output_matches /post\s*create a blog post/
-      #   output_matches /help\s*get help for a specific command/
-      # end
+      should "have subcommand short descriptions" do
+        # output_matches /post\s*create a blog post/
+        # output_matches /help\s*get help for a specific command/
+      end
 
       should "have a usage" do
         output_matches /Usage: wordpress \[/
       end
+
+      context "as a subcommand" do
+        should "get help on primary"
+        should "get help on subcommands"
+      end
+
     end
 
     context "with no options" do
