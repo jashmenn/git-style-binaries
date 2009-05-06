@@ -8,14 +8,9 @@ class AutoRunner
     r.run
   end
 
-  # returns exit code
   def run
-    # may not neede this blocking with @running
-    unless GitStyleBinary.run? || @running
-      puts "running"
-      @running = true
+    unless GitStyleBinary.run?
       GitStyleBinary.current_command.run
-      @running = false
     end
   end
 
