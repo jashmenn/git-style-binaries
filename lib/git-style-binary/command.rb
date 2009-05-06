@@ -3,7 +3,7 @@ require 'git-style-binary'
 module GitStyleBinary
   def self.command(&block)
     load_primary 
-    self.add_constraint(&block)
+    self.add_constraint(:subcommand, &block)
     command = GitStyleBinary::AutoRunner.run
   end
 

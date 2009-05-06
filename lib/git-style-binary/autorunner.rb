@@ -28,7 +28,7 @@ class AutoRunner
     vals = process_args(args, *a, &b)
     if parser.leftovers.size > 0 && parser.leftovers.first == cmd
       parser.leftovers.shift 
-      load GitStyleBinary.binary_filename_for(cmd) # uh nope. doesn't work
+      load GitStyleBinary.binary_filename_for(cmd)
       vals = process_args parser.leftovers
     end
     vals
