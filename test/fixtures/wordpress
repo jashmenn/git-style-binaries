@@ -24,7 +24,7 @@ end
 # usage: #{$0} #{all_options.collect(:&to_s).join(" ")} COMMAND [ARGS]
 #
 # The wordpress subcommands commands are:
-# {subcommands.pretty_print}
+# {subcommand_names.pretty_print}
 #
 # See 'wordpress help COMMAND' for more information on a specific command.
 # EOS

@@ -70,21 +70,14 @@ Copyright (c) 2009 Nate Murray. See LICENSE for details.
 ## TODO
 * short descriptions for `primary --help`
 * long help for `primary help subcommand`
-* running a subcommand binary directly
-* running a subcommand, space separated
 * color
 * tab completion
 
 ## NOTES
 
 ## To Test
-* primary listing subcommands
-* secondary listing primary options
 * 0 exit status
 * testing loading basic with no customizations on primary
-* primary 'run' block
-* secondary 'run' block
-* secondary options are created
 
 to get the short descriptions, its almost like you need to load all the
 subcommands and have all the blocks be evaulated into different parsers. then
