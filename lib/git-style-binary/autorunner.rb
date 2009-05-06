@@ -19,7 +19,7 @@ class AutoRunner
       parser.runs.last.call(c) # ... not too happy with this
       c
     else
-      parser.consume(&GitStyleBinary.constraints.last)
+      parser.consume(&GitStyleBinary.constraints[:subcommand].last)
     end
   end
 
@@ -64,8 +64,11 @@ class AutoRunner
   end
 
   def load_parser_constraints
-    GitStyleBinary.constraints.each do |c_block|
-      parser.consume(&c_block)
+    [:default, :primary, :subcommand].each do |section|
+      next unless GitStyleBinary.constraints[section]
+      GitStyleBinary.constraints[section].each do |c_block|
+        parser.consume(&c_block)
+      end
     end
   end
 

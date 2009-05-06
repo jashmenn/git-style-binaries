@@ -19,17 +19,19 @@ module GitStyleBinary
     end
 
     def constraints
-      @constraints ||= []
+      @constraints ||= {}
     end
 
     def add_constraint(key, &block)
       self.constraints
-      @constraints << block
+      @constraints[key] ||= []
+      @constraints[key] << block
     end
 
     def unshift_constraint(key, &block)
       self.constraints
-      @constraints.unshift(block)
+      @constraints[key] ||= []
+      @constraints[key].unshift(block)
     end
 
     def parser
