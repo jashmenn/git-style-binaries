@@ -2,9 +2,15 @@ require 'git-style-binary'
 
 module GitStyleBinary
   def self.command(&block)
-    load_primary 
-    self.add_constraint(:subcommand, &block)
-    command = GitStyleBinary::AutoRunner.run
+    returning Command.new(:constraints => [block]) do |c|
+      GitStyleBinary.current_command = c unless GitStyleBinary.current_command
+    end
+  end
+
+  def self.primary(&block)
+    returning Primary.new(:constraints => [block]) do |c|
+      GitStyleBinary.current_command = c unless GitStyleBinary.current_command
+    end
   end
 
   class Command
@@ -28,7 +34,6 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
 
     attr_reader :constraints
     attr_reader :opts
-    attr_reader :primary
 
     def initialize(o={})
       # o.each do |k,v|
@@ -62,7 +67,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_parser_primary_constraints
-      parser.consume_all(primary.constraints)
+      parser.consume_all(GitStyleBinary.primary.constraints)
     end
 
     def load_local_constraints 
@@ -70,7 +75,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def is_primary?
-      @is_primary ? true : false
+      false
     end
 
     def call_parser_run_block
@@ -109,14 +114,15 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       end
     end
 
-    # def load_parser_constraints
-    #   [:default, :primary, :subcommand].each do |section|
-    #     next unless GitStyleBinary.constraints[section]
-    #     GitStyleBinary.constraints[section].each do |c_block|
-    #       parser.consume(&c_block)
-    #     end
-    #   end
-    # end
-
   end
+
+  class Primary < Command
+    def is_primary?
+      true
+    end
+    def primary
+      self
+    end
+  end
+
 end

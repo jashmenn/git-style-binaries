@@ -7,32 +7,16 @@ module GitStyleBinary
  
   class << self
     include Helpers::NameResolver
+    attr_accessor :current_command
+    attr_accessor :primary
 
-   # If set to false GitStyleBinary will not automatically run at exit.
-    def run=(flag)
-      @run = flag
-    end
+    # If set to false GitStyleBinary will not automatically run at exit.
+    attr_writer :run
 
     # Automatically run at exit?
     def run?
       @run ||= false
     end
-
-    # def constraints
-    #   @constraints ||= {}
-    # end
-
-    # def add_constraint(key, &block)
-    #   self.constraints
-    #   @constraints[key] ||= []
-    #   @constraints[key] << block
-    # end
-
-    # def unshift_constraint(key, &block)
-    #   self.constraints
-    #   @constraints[key] ||= []
-    #   @constraints[key].unshift(block)
-    # end
 
     def parser
       @p ||= Parser.new
@@ -41,29 +25,12 @@ module GitStyleBinary
     def load_primary
       unless @loaded_primary
         @loaded_primary = true
-        primary = File.join(binary_directory, basename) 
-        load primary
-      end
-    end
-
-    def populate_defaults
-      self.unshift_constraint(:default) do
-        version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
-        banner <<-EOS
-Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
-
-The wordpress subcommands commands are:
-   #{GitStyleBinary.subcommand_names.join("\n   ")}
-
-See '#{bin_name} help COMMAND' for more information on a specific command.
-      EOS
-
-        opt :verbose,  "verbose", :default => false
+        primary_file = File.join(binary_directory, basename) 
+        load primary_file
       end
     end
 
   end
-
 end
 
 at_exit do
