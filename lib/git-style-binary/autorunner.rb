@@ -16,7 +16,7 @@ class AutoRunner
       load_parser_constraints
       args = process_args_with_subcmd
       c = Command.new(:opts => args, :argv => ARGV, :name => GitStyleBinary.current_command_name)
-      parser.runs.first.call(c) # ... not too happy with this
+      parser.runs.last.call(c) # ... not too happy with this
       c
     else
       parser.consume(&GitStyleBinary.constraints.last)

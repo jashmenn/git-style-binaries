@@ -82,8 +82,17 @@ class RunningBinariesTest < Test::Unit::TestCase
           should "be running the subcommand's run block" do
             output_matches /Subcommand name/
           end
-          should "have some global options"
-          should "have some local options"
+          should "have some default options" do
+            output_matches /version=>false/
+            output_matches /help=>false/
+          end
+          should "have some primary options" do
+            output_matches /test_primary=>nil/
+          end
+          should "have some local options" do
+            output_matches /title=>"glendale"/
+            output_matches /type=>"html"/
+          end
         end
 
       end # end bin_format
