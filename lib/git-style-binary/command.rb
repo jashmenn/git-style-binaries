@@ -3,7 +3,9 @@ require 'git-style-binary'
 module GitStyleBinary
   def self.command(&block)
     returning Command.new(:constraints => [block]) do |c|
-      GitStyleBinary.current_command = c unless GitStyleBinary.current_command
+      if !GitStyleBinary.current_command || GitStyleBinary.current_command.is_primary?
+        GitStyleBinary.current_command = c
+      end
     end
   end
 
@@ -81,6 +83,8 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def call_parser_run_block
+      runs = GitStyleBinary.current_command.parser.runs
+      p runs
       parser.runs.last.call(self) # ... not too happy with this
     end
 
@@ -89,6 +93,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       vals = process_args(args, *a, &b)
       if parser.leftovers.size > 0 && parser.leftovers.first == cmd
         parser.leftovers.shift 
+        puts "loading #{cmd}"
         load GitStyleBinary.binary_filename_for(cmd)
         vals = process_args parser.leftovers
       end

@@ -36,7 +36,6 @@ end
 at_exit do
   unless $! || GitStyleBinary.run?
     command = GitStyleBinary::AutoRunner.run
-    # command.exit_status # todo
     exit 0
   end
 end
