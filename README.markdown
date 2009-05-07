@@ -1,5 +1,10 @@
 git-style-binaries
 ==================
+----------------------------------------------------------
+* PRE-ALPHA - under active development (i.e. Don't use just yet)
+* See <tt>test/fixtures</tt> for examples
+
+----------------------------------------------------------
 
 Super simple git-style binaries.
 
@@ -78,9 +83,3 @@ Copyright (c) 2009 Nate Murray. See LICENSE for details.
 ## To Test
 * 0 exit status
 * testing loading basic with no customizations on primary
-
-to get the short descriptions, its almost like you need to load all the
-subcommands and have all the blocks be evaulated into different parsers. then
-you need to to just load values from those specific parsers, but dont load them
-all into the main parser. 
-(same with long descriptions)
