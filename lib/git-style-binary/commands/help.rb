@@ -5,8 +5,23 @@ module GitStyleBinary
       GitStyleBinary.command do
         short_desc "get help for a specific command"
         run do |command|
+
+          # this is slightly ugly b/c it has to muck around in the internals to
+          # get information about commands other than itself. This isn't a
+          # typical case
           def educate_about_command(name)
-            puts "you want to know about #{name}?"
+            load_all_commands
+            if GitStyleBinary.known_commands.has_key?(name)
+              cmd = GitStyleBinary.known_commands[name]
+              # 
+              cmd.process_parser!
+              cmd.parser.educate
+              
+              # banner = GitStyleBinary.known_commands[name].banner
+#               puts eval(%Q["#{banner}"]) # lazily interpolate by evaling banner in our context. todo, abstract out this idea
+            else
+              puts "Unknown command '#{name}'"
+            end
           end
 
           if command.argv.size > 0
