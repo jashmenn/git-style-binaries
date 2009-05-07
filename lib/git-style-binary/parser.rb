@@ -10,7 +10,11 @@ class Parser < Trollop::Parser
 
   # def banner s=nil; @banner = lambda{s} if s; @banner end
   def banner      s=nil; @banner     = s if s; @banner     end
-  def short_desc  s=nil; @short_desc = s if s; @short_desc end
+  # def short_desc  s=nil; @short_desc = s if s; @short_desc end
+  def short_desc  s=nil
+    @short_desc = s if s; 
+    @short_desc 
+  end
 
   ## Adds text to the help display.
   def text s; @order << [:text, s] end
@@ -24,6 +28,9 @@ class Parser < Trollop::Parser
     GitStyleBinary.subcommand_names.each do |name|
       cmd_file = GitStyleBinary.binary_filename_for(name)
       GitStyleBinary.load_command_file(name, cmd_file)
+      # the command needs to consume its block. WE need to consume its block!
+      # known commands? no. each command file that is loaded. needs to have a parser which has its short name.
+      # wait thats why we have process parser.
     end
   end
 

@@ -3,8 +3,8 @@ require 'git-style-binary'
 module GitStyleBinary
   def self.command(&block)
     returning Command.new(:constraints => [block]) do |c|
-      loading_name = GitStyleBinary.name_of_command_being_loaded || c.name
-      GitStyleBinary.known_commands[loading_name] = c
+      c.name ||= (GitStyleBinary.name_of_command_being_loaded || GitStyleBinary.current_command_name)
+      GitStyleBinary.known_commands[c.name] = c
 
       if !GitStyleBinary.current_command || GitStyleBinary.current_command.is_primary?
         GitStyleBinary.current_command = c
@@ -14,9 +14,11 @@ module GitStyleBinary
 
   def self.primary(&block)
     returning Primary.new(:constraints => [block]) do |c|
+      c.name ||= (GitStyleBinary.name_of_command_being_loaded || GitStyleBinary.current_command_name)
+      GitStyleBinary.known_commands[c.name] = c
+
       GitStyleBinary.primary_command = c unless GitStyleBinary.primary_command
       GitStyleBinary.current_command = c unless GitStyleBinary.current_command
-      GitStyleBinary.known_commands[c.name] = c
     end
   end
 
@@ -41,6 +43,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
 
     attr_reader :constraints
     attr_reader :opts
+    attr_accessor :name
 
     def initialize(o={})
       o.each do |k,v|
@@ -70,6 +73,7 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_all_parser_constraints
+      # puts "loading constraints #{name} #{id}"
       @loaded_all_parser_constraints ||= begin
         load_parser_default_constraints
         load_parser_primary_constraints
@@ -87,8 +91,14 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def load_parser_local_constraints 
-      cur = GitStyleBinary.current_command
-      parser.consume_all(cur.constraints) unless self.is_primary? && cur == self
+      cur = GitStyleBinary.current_command # see, why isn't 'this' current_command?
+
+      unless self.is_primary? && cur == self
+        # TODO TODO - the key lies in this function. figure out when you hav emore engergy
+        # soo UGLY. see #process_parser! unify with that method
+        # parser.consume_all(constraints) rescue ArgumentError
+        parser.consume_all(cur.constraints)
+      end
     end
 
     def call_parser_run_block
@@ -103,8 +113,16 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       vals
     end
 
+    # TOOooootally ugly! why? bc load_parser_local_constraints doesn't work
+    # when loading the indivdual commands because it depends on
+    # #current_command. This really sucks and is UGLY. 
+    # the todo is to put in 'load_all_parser_constraints' and this works
     def process_parser!
-      load_all_parser_constraints
+      # load_all_parser_constraints
+      load_parser_default_constraints
+      load_parser_primary_constraints
+      # load_parser_local_constraints
+      parser.consume_all(constraints)
     end
 
     def process_args(args = ARGV, *a, &b)
@@ -131,9 +149,9 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       false
     end
 
-    def name
-      GitStyleBinary.current_command_name
-    end
+    # def name
+    #   @name || GitStyleBinary.current_command_name
+    # end
 
     def argv
       parser.leftovers

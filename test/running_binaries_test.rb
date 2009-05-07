@@ -22,12 +22,12 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "get a list of subcommands" do
-        output_matches /The wordpress subcommands are:\n\s*help\s*post/m
+        output_matches /The wordpress subcommands are:\n\s*help\s*get help for a specific command\s*post\s*create a blog post/m
       end
 
       should "have subcommand short descriptions" do
-        # output_matches /post\s*create a blog post/
-        # output_matches /help\s*get help for a specific command/
+        output_matches /post\s*create a blog post/
+        output_matches /help\s*get help for a specific command/
       end
 
       should "have a usage" do
@@ -43,12 +43,16 @@ class RunningBinariesTest < Test::Unit::TestCase
           context "get help on primary" do
             setup { @stdout, @stderr = bin(format) }
             should "" do
+              assert false
               puts @stdout + @stderr
             end
           end
 
           context "get help on subcommands" do
             setup { @stdout, @stderr = bin("#{format} post") }
+            should "help" do
+              assert false
+            end
           end
         end
       end
