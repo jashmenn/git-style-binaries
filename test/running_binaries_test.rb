@@ -92,7 +92,7 @@ class RunningBinariesTest < Test::Unit::TestCase
 
   # ["wordpress help post", "wordpress post -h", "wordpress -h post"].each do |format| 
   ["wordpress help post", "wordpress post -h"].each do |format| 
-    context "when calling #{format}" do
+    context "when calling '#{format}'" do
       
       setup { @stdout, @stderr = bin(format) }
       should "have a description" do
@@ -106,14 +106,18 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "have option flags" do
-        output_matches /\-\-title <s>/
+        output_matches /\-\-title(.*)<s>/
       end
 
       should "have primary option flags" do
-        output_matches /\-\-test-primary <s>/
+        output_matches /\-\-test-primary(.*)<s>/
       end
 
       should "have default option flags" do
+        output_matches /\-\-verbose/
+      end
+
+      should "have trollop default option flags" do
         output_matches /\-\-version, \-e:/
       end
 

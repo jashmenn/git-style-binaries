@@ -123,10 +123,18 @@ See '#{command.full_name} help COMMAND' for more information on a specific comma
     # the todo is to put in 'load_all_parser_constraints' and this works
     def process_parser!
       # load_all_parser_constraints
+
       load_parser_default_constraints
       load_parser_primary_constraints
       # load_parser_local_constraints
       parser.consume_all(constraints)
+
+      # hack
+      parser.consume { 
+        opt :version, "Print version and exit" if @version unless @specs[:version] || @long["version"]
+        opt :help, "Show this message" unless @specs[:help] || @long["help"]
+        resolve_default_short_options
+      } # hack
     end
 
     def process_args(args = ARGV, *a, &b)

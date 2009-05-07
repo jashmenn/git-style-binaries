@@ -7,7 +7,6 @@ require 'git-style-binary/primary'
 
 require 'git-style-binary/primary'
 GitStyleBinary.primary do
-  # version "#{GitStyleBinary.full_current_command_name} 0.0.1 (c) 2009 Nate Murray - local"
   version "#{command.full_name} 0.0.1 (c) 2009 Nate Murray - local"
   opt :test_primary, "a primary string option", :type => String
 
