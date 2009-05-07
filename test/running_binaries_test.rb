@@ -1,37 +1,32 @@
 require File.dirname(__FILE__) + "/test_helper.rb"
-require 'open3'
-
-module RunsBinaryFixtures
-  # run the specified cmd returning the string values of [stdout,stderr]
-  def bin(cmd)
-    stdin, stdout, stderr = Open3.popen3("#{fixtures_dir}/#{cmd}")
-    [stdout.read, stderr.read]
-  end
-end
 
 class RunningBinariesTest < Test::Unit::TestCase
   include RunsBinaryFixtures
 
   context "when running primary" do
-    context "and getting help as a flag" do
-      setup { @stdout, @stderr = bin("wordpress -h") }
+    ["wordpress -h", "wordpress help"].each do |format|
+      context "and getting help as a '#{format}'" do
+        setup { @stdout, @stderr = bin(format) }
 
-      should "have a local (not default) version string" do
-        # puts @stdout, @stderr
-        output_matches /wordpress 0\.0\.1 \(c\) 2009 Nate Murray - local/
-      end
+        should "have a local (not default) version string" do
+          # puts @stdout, @stderr
+          output_matches /wordpress(\-help)? 0\.0\.1 \(c\) 2009 Nate Murray - local/
+        end
 
-      should "get a list of subcommands" do
-        output_matches /The wordpress subcommands are:\n\s*help\s*get help for a specific command\s*post\s*create a blog post/m
-      end
+        should "get a list of subcommands" do
+          output_matches /The wordpress subcommands are:\n\s*help\s*get help for a specific command\s*post\s*create a blog post/m
+        end
 
-      should "have subcommand short descriptions" do
-        output_matches /post\s*create a blog post/
-        output_matches /help\s*get help for a specific command/
-      end
+        should "have subcommand short descriptions" do
+          output_matches /post\s*create a blog post/
+          output_matches /help\s*get help for a specific command/
+        end
 
-      should "have a usage" do
-        output_matches /Usage: wordpress \[/
+        should "have a usage" do
+          output_matches /Usage: wordpress(\-help)? \[/
+        end
+
+        should "be able to ask for help about help"
       end
     end
 
@@ -39,25 +34,10 @@ class RunningBinariesTest < Test::Unit::TestCase
       # ["wordpress -h", "wordpress help"].each do |format|
       ["wordpress help"].each do |format|
         context "'#{format}'" do
-
-          context "get help on primary" do
-            setup { @stdout, @stderr = bin(format) }
-            should "" do
-              assert false
-              puts @stdout + @stderr
-            end
-          end
-
-          context "get help on subcommands" do
-            setup { @stdout, @stderr = bin("#{format} post") }
-            should "help" do
-              assert false
-            end
-          end
+          should "get help on subcommand post"
         end
       end
     end
-
 
     context "with no options" do
       setup { @stdout, @stderr = bin("wordpress") }
@@ -78,28 +58,6 @@ class RunningBinariesTest < Test::Unit::TestCase
     ["wordpress-post", "wordpress post"].each do |bin_format|
       context "#{bin_format}" do
 
-        context "and getting help" do
-          setup { @stdout, @stderr = bin("#{bin_format} -h") }
-
-          should "have a the primaries version string, except correct binary name" do
-             output_matches /wordpress-post 0\.0\.1 \(c\) 2009 Nate Murray - local/
-          end
-
-          should "have a usage" do
-            output_matches "Usage:"
-          end
-
-          should "have a description" do
-            output_matches /Posts content to a wordpress blog/
-          end
-
-          should "have options" do
-            output_matches /Options:/
-            output_matches /--blog, -b <s>:   short name of the blog to use \(default: default\)/
-            output_matches /--title, -i <s>:   title for the post/
-          end
-
-        end
 
         context "with no options" do
           setup { @stdout, @stderr = bin("#{bin_format}") }
@@ -131,4 +89,44 @@ class RunningBinariesTest < Test::Unit::TestCase
       end # end bin_format
     end # end #each
   end
+
+  ["wordpress help post", "wordpress post -h", "wordpress -h post"].each do |format| 
+    context "when calling #{format}" do
+      
+      setup { @stdout, @stderr = bin(format) }
+      should "have a description" do
+        output_matches /Posts content to a wordpress blog/
+      end
+
+      should "have the proper usage line" do
+        output_matches "Usage:"
+        output_matches /Usage: wordpress\-post/
+        output_matches /\[--title\]/
+      end
+
+      should "have option flags" do
+        output_matches /\-\-title <s>/
+      end
+
+      should "have primary option flags" do
+        output_matches /\-\-test-primary <s>/
+      end
+
+      should "have default option flags" do
+        output_matches /\-\-version, \-e:/
+      end
+
+      should "have a the primaries version string, except correct binary name" do
+         output_matches /wordpress-post 0\.0\.1 \(c\) 2009 Nate Murray - local/
+      end
+
+      should "have options" do
+        output_matches /Options:/
+        output_matches /--blog, -b <s>:   short name of the blog to use \(default: default\)/
+        output_matches /--title, -i <s>:   title for the post/
+      end
+
+    end
+  end
+
 end
