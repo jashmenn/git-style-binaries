@@ -5,7 +5,7 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   short_desc "create a blog post"
   banner <<-EOS
-Usage: #{bin_name} #{all_options_string} {content|STDIN} 
+Usage: #{command.full_name} #{all_options_string} {content|STDIN} 
 
 Posts content to a wordpress blog 
 

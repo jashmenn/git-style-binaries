@@ -5,6 +5,7 @@ module Helpers
     def basename(filename=zero)
       File.basename(filename).match(/(.*?)(\-|$)/).captures.first
     end
+    alias_method :primary_name, :basename
 
     # checks the bin directory for all files starting with +basename+ and
     # returns an array of strings specifying the subcommands

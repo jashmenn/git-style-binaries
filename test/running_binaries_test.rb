@@ -90,7 +90,8 @@ class RunningBinariesTest < Test::Unit::TestCase
     end # end #each
   end
 
-  ["wordpress help post", "wordpress post -h", "wordpress -h post"].each do |format| 
+  # ["wordpress help post", "wordpress post -h", "wordpress -h post"].each do |format| 
+  ["wordpress help post", "wordpress post -h"].each do |format| 
     context "when calling #{format}" do
       
       setup { @stdout, @stderr = bin(format) }

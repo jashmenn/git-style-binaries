@@ -2,6 +2,7 @@ module GitStyleBinary
 class Parser < Trollop::Parser
   attr_reader :runs
   attr_reader :short_desc
+  attr_accessor :command
 
   def initialize *a, &b
     super

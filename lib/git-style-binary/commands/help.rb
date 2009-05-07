@@ -13,12 +13,8 @@ module GitStyleBinary
             load_all_commands
             if GitStyleBinary.known_commands.has_key?(name)
               cmd = GitStyleBinary.known_commands[name]
-              # 
               cmd.process_parser!
               cmd.parser.educate
-              
-              # banner = GitStyleBinary.known_commands[name].banner
-#               puts eval(%Q["#{banner}"]) # lazily interpolate by evaling banner in our context. todo, abstract out this idea
             else
               puts "Unknown command '#{name}'"
             end

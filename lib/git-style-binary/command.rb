@@ -26,14 +26,14 @@ module GitStyleBinary
     class << self
       def defaults
         lambda do
-          version "#{bin_name} 0.0.1 (c) 2009 Nate Murray"
+          version "#{command.full_name} 0.0.1 (c) 2009 Nate Murray"
           banner <<-EOS
-Usage: #{bin_name} #{all_options_string} COMMAND [ARGS]
+Usage: #{command.full_name} #{all_options_string} COMMAND [ARGS]
 
 The wordpress subcommands are:
    \#{GitStyleBinary.pretty_known_subcommands.join("\n   ")}
 
-See '#{bin_name} help COMMAND' for more information on a specific command.
+See '#{command.full_name} help COMMAND' for more information on a specific command.
         EOS
 
           opt :verbose,  "verbose", :default => false
@@ -52,7 +52,11 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
     end
 
     def parser
-      @parser ||= Parser.new
+      @parser ||= begin 
+                    p = Parser.new
+                    p.command = self
+                    p
+                  end
     end
 
     def constraints
@@ -149,10 +153,6 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       false
     end
 
-    # def name
-    #   @name || GitStyleBinary.current_command_name
-    # end
-
     def argv
       parser.leftovers
     end
@@ -168,6 +168,11 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       else 
         super
       end
+    end
+
+    def full_name
+      # ugly, should be is_primary?
+      GitStyleBinary.primary_name == name ? GitStyleBinary.primary_name : GitStyleBinary.primary_name + "-" + name
     end
 
   end
