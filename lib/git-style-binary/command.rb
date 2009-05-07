@@ -77,7 +77,6 @@ See '#{command.full_name} help COMMAND' for more information on a specific comma
     end
 
     def load_all_parser_constraints
-      # puts "loading constraints #{name} #{id}"
       @loaded_all_parser_constraints ||= begin
         load_parser_default_constraints
         load_parser_primary_constraints
