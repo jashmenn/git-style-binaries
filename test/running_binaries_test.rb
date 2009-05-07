@@ -36,7 +36,7 @@ class RunningBinariesTest < Test::Unit::TestCase
     end
 
     context "and getting help as subcommand" do
-      # ["wordpress-help", "wordpress help"].each do |format|
+      # ["wordpress -h", "wordpress help"].each do |format|
       ["wordpress help"].each do |format|
         context "'#{format}'" do
 
