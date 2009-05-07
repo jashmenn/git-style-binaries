@@ -161,9 +161,14 @@ See '#{bin_name} help COMMAND' for more information on a specific command.
       parser.short_desc
     end
 
-    # def die(*args)
-    #   parser.die(*args)
-    # end
+    # delegate other methods to the parser
+    def method_missing(name, *args, &block)
+      if parser.respond_to?(name)
+        parser.send(name)
+      else 
+        super
+      end
+    end
 
   end
 
