@@ -2,6 +2,7 @@ require 'rubygems'
 require 'test/unit'
 require 'shoulda'
 begin require 'redgreen'; rescue LoadError; end
+require 'open3'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
@@ -15,3 +16,12 @@ class Test::Unit::TestCase
     File.join(File.dirname(__FILE__), "fixtures")
   end
 end
+
+module RunsBinaryFixtures
+  # run the specified cmd returning the string values of [stdout,stderr]
+  def bin(cmd)
+    stdin, stdout, stderr = Open3.popen3("#{fixtures_dir}/#{cmd}")
+    [stdout.read, stderr.read]
+  end
+end
+
