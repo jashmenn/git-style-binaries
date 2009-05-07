@@ -84,7 +84,13 @@ class RunningBinariesTest < Test::Unit::TestCase
           end
         end
 
-        should "die on command.die statements"
+        context "testing die statements" do
+          setup { @stdout, @stderr = bin("#{bin_format} --title='glendale' --type=yaml") }
+
+          should "die on invalid options"  do
+            output_matches /argument \-\-type type must be one of \[html\|xhtml\|text\]/
+          end
+        end
 
       end # end bin_format
     end # end #each

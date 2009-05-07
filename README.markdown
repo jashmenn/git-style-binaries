@@ -1,10 +1,5 @@
 git-style-binaries
 ==================
-----------------------------------------------------------
-* PRE-ALPHA - under active development (i.e. Don't use just yet)
-* See <tt>test/fixtures</tt> for examples
-
-----------------------------------------------------------
 
 Super simple git-style binaries.
 
