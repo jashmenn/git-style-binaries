@@ -26,7 +26,8 @@ module GitStyleBinary
     class << self
       def defaults
         lambda do
-          version "#{command.full_name} 0.0.1 (c) 2009 Nate Murray"
+          version_string = defined?(VERSION) ? VERSION : "0.0.1"
+          version "#{command.full_name} #{version_string} (c) #{Time.now.year}"
           banner <<-EOS
 Usage: #{command.full_name} #{all_options_string} COMMAND [ARGS]
 

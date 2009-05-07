@@ -32,6 +32,15 @@ module GitStyleBinary
         @loaded_primary = true
         primary_file = File.join(binary_directory, basename) 
         load primary_file
+
+        if !GitStyleBinary.primary_command # you still dont have a primary load a default
+          GitStyleBinary.primary do
+            run do |command|
+              educate
+            end
+          end
+        end
+
       end
     end
 

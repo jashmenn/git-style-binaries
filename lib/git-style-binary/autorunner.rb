@@ -10,6 +10,10 @@ class AutoRunner
 
   def run
     unless GitStyleBinary.run?
+      if !GitStyleBinary.current_command 
+        GitStyleBinary.load_primary
+      end
+
       GitStyleBinary.current_command.run
     end
   end

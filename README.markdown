@@ -3,11 +3,17 @@ git-style-binaries
 
 Super simple git-style binaries.
 
-This gem builds on `trollop`.
+This gem builds on [`trollop`](http://trollop.rubyforge.org/)
 
-## Overview 
+## Examples
 
-What that even means. Lets use the wordpress.rb gem:
+
+Lets use the imaginary `wordpress` gem. Lets say we have three different
+actions we want to specify:
+
+* post
+* list
+* categories
 
 You have a `bin/wordpress`. This file should contain a simple `require` if you
 

@@ -1,5 +1,7 @@
 require File.dirname(__FILE__) + "/test_helper.rb"
 
+THIS_YEAR=Time.now.year # todo
+
 class RunningBinariesTest < Test::Unit::TestCase
   include RunsBinaryFixtures
 
@@ -57,7 +59,6 @@ class RunningBinariesTest < Test::Unit::TestCase
     # should be the same for both formats
     ["wordpress-post", "wordpress post"].each do |bin_format|
       context "#{bin_format}" do
-
 
         context "with no options" do
           setup { @stdout, @stderr = bin("#{bin_format}") }
@@ -137,6 +138,27 @@ class RunningBinariesTest < Test::Unit::TestCase
         output_matches /--title, -i <s>:   title for the post/
       end
 
+    end
+  end
+
+  context "when running a bare primary" do
+    ["flickr -h", "flickr help"].each do |format|
+      context format do
+        setup { @stdout, @stderr = bin(format) }
+
+        should "have a local (not default) version string" do
+          output_matches /flickr(\-help)? 0\.0\.2 \(c\) 2009/
+        end
+      end
+    end
+    ["flickr-download -h", "flickr download -h"].each do |format|
+      context format do
+       setup { @stdout, @stderr = bin(format) }
+
+       should "match on usage" do
+         output_matches /Usage: flickr\-download/
+       end
+      end
     end
   end
 
