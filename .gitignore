@@ -6,3 +6,5 @@ pkg
 .autosession.vim
 .sessions
 .session
+tags
+README.html

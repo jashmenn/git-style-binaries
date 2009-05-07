@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 $:.unshift(File.dirname(__FILE__) + "/../../lib")
 
-require 'git-style-binary/primary'
+require 'git-style-binary/command'
 GitStyleBinary.primary do
   version "#{command.full_name} 0.0.1 (c) 2009 Nate Murray - local"
   opt :test_primary, "a primary string option", :type => String
