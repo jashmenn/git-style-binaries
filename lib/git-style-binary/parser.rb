@@ -46,8 +46,9 @@ class Parser < Trollop::Parser
     left = {}
 
     @specs.each do |name, spec| 
-      left[name] = "--#{spec[:long]}" +
-        (spec[:short] ? ", -#{spec[:short]}" : "") +
+      left[name] = 
+        (spec[:short] ? "-#{spec[:short]}, " : "") +
+        "--#{spec[:long]}" +
         case spec[:type]
         when :flag; ""
         when :int; " <i>"
@@ -56,8 +57,9 @@ class Parser < Trollop::Parser
         when :strings; " <s+>"
         when :float; " <f>"
         when :floats; " <f+>"
-        end
+        end 
     end
+    # todo, get wrapping TODO
 
     leftcol_width = left.values.map { |s| s.length }.max || 0
     rightcol_start = leftcol_width + 6 # spaces
@@ -82,7 +84,7 @@ class Parser < Trollop::Parser
       end
 
       spec = @specs[opt]
-      stream.printf "  %#{leftcol_width}s:   ", left[opt]
+      stream.printf "    %-#{leftcol_width}s\n", left[opt]
       desc = spec[:desc] + 
         if spec[:default]
           if spec[:desc] =~ /\.$/
@@ -93,7 +95,10 @@ class Parser < Trollop::Parser
         else
           ""
         end
-      stream.puts wrap(desc, :width => width - rightcol_start - 1, :prefix => rightcol_start)
+      # stream.puts wrap(desc, :width => width - rightcol_start - 1, :prefix => rightcol_start)
+      stream.printf "        %s", desc
+      stream.puts
+      stream.puts
     end
 
   end

@@ -127,7 +127,7 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "have trollop default option flags" do
-        output_matches /\-\-version, \-e:/
+        output_matches /\-e, \-\-version/
       end
 
       should "have a the primaries version string, except correct binary name" do
@@ -136,8 +136,8 @@ class RunningBinariesTest < Test::Unit::TestCase
 
       should "have options" do
         output_matches /Options/i
-        output_matches /--blog, -b <s>:\s*short name of the blog to use \(default: default\)/m
-        output_matches /--title, -i <s>:\s*title for the post/m
+        output_matches /-b, --blog <s>\s*short name of the blog to use \(default: default\)/m
+        output_matches /-i, --title <s>\s*title for the post/m
       end
 
     end

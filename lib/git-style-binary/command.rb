@@ -35,7 +35,7 @@ module GitStyleBinary
 #{"SUBCOMMANDS".colorize(:red)}
    \#{GitStyleBinary.pretty_known_subcommands.join("\n   ")}
 
-See '#{command.full_name} help COMMAND' for more information on a specific command.
+  See '#{command.full_name} help COMMAND' for more information on a specific command.
         EOS
 
           opt :verbose,  "verbose", :default => false
