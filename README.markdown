@@ -9,6 +9,12 @@ This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 
     gem install jashmenn-git-style-binaries --source=http://gems.github.com
 
+## Try it out
+
+    cd `gem env gemdir`/gems/jashmenn-git-style-binaries-0.1.4/test/fixtures
+    ./wordpress -h
+    ./wordpress help post
+
 ## Goal
 
 Lets use the imaginary `wordpress` gem. Let's say we have three different
