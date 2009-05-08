@@ -111,7 +111,7 @@ class RunningBinariesTest < Test::Unit::TestCase
       
       setup { @stdout, @stderr = bin(format) }
       should "have a description" do
-        output_matches /Posts content to a wordpress blog/
+        output_matches /create a blog post/
       end
 
       should "have the proper usage line" do

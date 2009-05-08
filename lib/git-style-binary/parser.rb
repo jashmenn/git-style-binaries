@@ -48,7 +48,7 @@ class Parser < Trollop::Parser
 
     @specs.each do |name, spec| 
       left[name] = 
-        (spec[:short] ? "-#{spec[:short]}, " : "") +
+        ((spec[:short] ? "-#{spec[:short]}, " : "") +
         "--#{spec[:long]}" +
         case spec[:type]
         when :flag; ""
@@ -58,7 +58,7 @@ class Parser < Trollop::Parser
         when :strings; "=<s+>"
         when :float; "=<f>"
         when :floats; "=<f+>"
-        end 
+        end).colorize(:red)
     end
     # todo, get wrapping TODO
 
@@ -82,7 +82,8 @@ class Parser < Trollop::Parser
  
       stream.puts
 
-      banner = wrap(colorize_known_words(eval(%Q["#{@banner}"])) + "\n", :prefix => leftcol_start) if @banner # lazy banner
+#       banner = wrap(colorize_known_words(eval(%Q["#{@banner}"])) + "\n", :prefix => leftcol_start) if @banner # lazy banner
+      banner = colorize_known_words_array(wrap(eval(%Q["#{@banner}"]) + "\n", :prefix => leftcol_start)) if @banner # lazy banner
       stream.puts banner
 
       stream.puts
@@ -167,9 +168,15 @@ class Parser < Trollop::Parser
 
   end
 
+
+  def colorize_known_words_array(txts)
+    txts.collect{|txt| colorize_known_words(txt)}
+  end
+
   def colorize_known_words(txt)
-    txt = txt.gsub(/^([A-Z]+\s*)$/, '\1'.colorize(:red))
-    txt = txt.gsub(/\b(#{bin_name})\b/, '\1'.colorize(:blue))
+    txt = txt.gsub(/^([A-Z]+\s*)$/, '\1'.colorize(:red))       # all caps words on their own line
+    txt = txt.gsub(/\b(#{bin_name})\b/, '\1'.colorize(:blue))  # the current command name
+    txt = txt.gsub(/\[([^\s]+)\]/, "[".colorize(:magenta) + '\1'.colorize(:green) + "]".colorize(:magenta)) # synopsis options
   end
 
   def consume(&block)
@@ -185,7 +192,8 @@ class Parser < Trollop::Parser
   end
 
   def all_options_string
-    '#{spec_names.collect(&:to_s).collect{|name| "[".colorize(:magenta) + "--" + name + "]".colorize(:magenta)}.join(" ")} COMMAND [ARGS]'
+    # '#{spec_names.collect(&:to_s).collect{|name| "[".colorize(:magenta) + "--" + name + "]".colorize(:magenta)}.join(" ")} COMMAND [ARGS]'
+    '#{spec_names.collect(&:to_s).collect{|name| "[" + "--" + name + "]"}.join(" ")} COMMAND [ARGS]'
   end
 
   def run(&block)
