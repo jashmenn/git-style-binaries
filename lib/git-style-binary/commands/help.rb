@@ -21,7 +21,7 @@ module GitStyleBinary
           end
 
           if command.argv.size > 0
-            educate_about_command(command.argv.first)
+            command.argv.first == "help" ? educate : educate_about_command(command.argv.first)
           else
             educate
           end
