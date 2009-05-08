@@ -10,8 +10,12 @@ class RunningBinariesTest < Test::Unit::TestCase
       context "and getting help as a '#{format}'" do
         setup { @stdout, @stderr = bin(format) }
 
+        should "have the command name and short description" do
+          output_matches /NAME\n\s*wordpress\-help \- get help for a specific command/m
+        end
+
         should "have a local (not default) version string" do
-          output_matches /wordpress(\-help)? 0\.0\.1 \(c\) 2009 Nate Murray - local/
+          output_matches /0\.0\.1 \(c\) 2009 Nate Murray - local/
         end
 
         should "get a list of subcommands" do
@@ -109,8 +113,7 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "have the proper usage line" do
-        output_matches "Usage:"
-        output_matches /Usage: wordpress\-post/
+        output_matches /SYNOPSIS\n\s*wordpress\-post/m
         output_matches /\[--title\]/
       end
 
@@ -130,14 +133,22 @@ class RunningBinariesTest < Test::Unit::TestCase
         output_matches /\-e, \-\-version/
       end
 
-      should "have a the primaries version string, except correct binary name" do
-         output_matches /wordpress-post 0\.0\.1 \(c\) 2009 Nate Murray - local/
+      should "have the correct binary name and short description" do
+        output_matches /NAME\n\s*wordpress\-post \- create a blog post/m
+      end
+
+      should "have a the primaries version string" do
+         output_matches /0\.0\.1 \(c\) 2009 Nate Murray - local/
       end
 
       should "have options" do
         output_matches /Options/i
-        output_matches /-b, --blog <s>\s*short name of the blog to use \(default: default\)/m
-        output_matches /-i, --title <s>\s*title for the post/m
+
+        output_matches /\-b, \-\-blog=<s>/
+        output_matches /short name of the blog to use/
+
+        output_matches /-i, \-\-title=<s>/
+        output_matches /title for the post/
       end
 
     end
@@ -148,8 +159,12 @@ class RunningBinariesTest < Test::Unit::TestCase
       context format do
         setup { @stdout, @stderr = bin(format) }
 
+        should "have the name and short description" do
+          output_matches /NAME\n\s*flickr\-help \- get help for a specific command/m
+        end
+
         should "have a local (not default) version string" do
-          output_matches /flickr(\-help)? 0\.0\.2 \(c\) 2009/
+          output_matches /0\.0\.2 \(c\) 2009/
         end
       end
     end
@@ -158,7 +173,7 @@ class RunningBinariesTest < Test::Unit::TestCase
        setup { @stdout, @stderr = bin(format) }
 
        should "match on usage" do
-         output_matches /Usage: flickr\-download/
+         output_matches /SYNOPSIS\n\s*flickr\-download/m
        end
       end
     end

@@ -5,7 +5,8 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   short_desc "do something with categories"
   banner <<-EOS
-Usage: #{command.full_name} #{all_options_string}
+SYNOPSIS
+      #{command.full_name} #{all_options_string}
 
 Does something with categories
 

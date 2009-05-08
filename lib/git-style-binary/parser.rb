@@ -11,6 +11,7 @@ class Parser < Trollop::Parser
 
   def banner      s=nil; @banner     = s if s; @banner     end
   def short_desc  s=nil; @short_desc = s if s; @short_desc end
+  def name_desc   s=nil; @name_desc = s if s; @name_desc end
 
   # Set the theme. Valid values are +:short+ or +:long+. Default +:long+
   attr_writer :theme
@@ -67,10 +68,23 @@ class Parser < Trollop::Parser
     leftcol_spaces = " " * leftcol_start
 
     unless @order.size > 0 && @order.first.first == :text
-      stream.puts "NAME".colorize(:red)
-      stream.puts "#{leftcol_spaces}#@version\n" if @version
+
+      if @name_desc
+        stream.puts "NAME".colorize(:red)
+        stream.puts "#{leftcol_spaces}"+  eval(%Q["#{@name_desc}"]) + "\n"
+        stream.puts
+      end
+
+      if @version
+        stream.puts "VERSION".colorize(:red)
+        stream.puts "#{leftcol_spaces}#@version\n"
+      end
+ 
       stream.puts
-      stream.puts wrap(eval(%Q["#{@banner}"]) + "\n", :prefix => leftcol_start) if @banner # lazy banner
+
+      banner = wrap(colorize_known_words(eval(%Q["#{@banner}"])) + "\n", :prefix => leftcol_start) if @banner # lazy banner
+      stream.puts banner
+
       stream.puts
       stream.puts "OPTIONS".colorize(:red)
     else
@@ -151,6 +165,10 @@ class Parser < Trollop::Parser
       stream.puts wrap(desc, :width => width - rightcol_start - 1, :prefix => rightcol_start)
     end
 
+  end
+
+  def colorize_known_words(txt)
+    txt = txt.gsub(/^([A-Z]+\s*)$/, '\1'.colorize(:red))
   end
 
   def consume(&block)

@@ -5,7 +5,8 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   short_desc "download a flickr image"
   banner <<-EOS
-Usage: #{command.full_name} #{all_options_string} url 
+SYNOPSIS
+      #{command.full_name} #{all_options_string} url 
 
 Downloads an image from flickr
 
