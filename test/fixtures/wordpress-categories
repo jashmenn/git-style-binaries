@@ -14,4 +14,3 @@ EOS
     puts "does something with categories"
   end
 end
-

@@ -13,7 +13,6 @@ class AutoRunner
       if !GitStyleBinary.current_command 
         GitStyleBinary.load_primary
       end
-
       GitStyleBinary.current_command.run
     end
   end

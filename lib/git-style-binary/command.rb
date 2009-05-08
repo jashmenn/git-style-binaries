@@ -169,15 +169,6 @@ See '#{command.full_name} help COMMAND' for more information on a specific comma
       parser.short_desc
     end
 
-    # delegate other methods to the parser
-    # def method_missing(name, *args, &block)
-    #   if parser.respond_to?(name)
-    #     parser.send(name)
-    #   else 
-    #     super
-    #   end
-    # end
-
     def full_name
       # ugly, should be is_primary?
       GitStyleBinary.primary_name == name ? GitStyleBinary.primary_name : GitStyleBinary.primary_name + "-" + name

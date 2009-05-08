@@ -11,7 +11,6 @@ class RunningBinariesTest < Test::Unit::TestCase
         setup { @stdout, @stderr = bin(format) }
 
         should "have a local (not default) version string" do
-          # puts @stdout, @stderr
           output_matches /wordpress(\-help)? 0\.0\.1 \(c\) 2009 Nate Murray - local/
         end
 

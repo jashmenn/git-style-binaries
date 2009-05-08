@@ -40,7 +40,6 @@ module GitStyleBinary
             end
           end
         end
-
       end
     end
 
