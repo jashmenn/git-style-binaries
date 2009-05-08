@@ -1,7 +1,7 @@
 git-style-binaries
 ==================
 
-Super simple git-style binaries.
+Ridiculously easy git-style binaries.
 
 This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 

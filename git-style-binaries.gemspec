@@ -6,25 +6,25 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nate Murray"]
-  s.date = %q{2009-05-07}
+  s.date = %q{2009-05-08}
+  s.description = %q{Ridiculously easy git-style binaries}
   s.email = %q{nate@natemurray.com}
   s.extra_rdoc_files = [
-    "LICENSE",
     "README.html",
     "README.markdown"
   ]
   s.files = [
-    "LICENSE",
-    "README.html",
     "README.markdown",
     "Rakefile",
     "VERSION.yml",
+    "lib/ext/colorize.rb",
     "lib/ext/core.rb",
     "lib/git-style-binary.rb",
     "lib/git-style-binary/autorunner.rb",
     "lib/git-style-binary/command.rb",
     "lib/git-style-binary/commands/help.rb",
     "lib/git-style-binary/helpers/name_resolver.rb",
+    "lib/git-style-binary/helpers/pager.rb",
     "lib/git-style-binary/parser.rb",
     "test/fixtures/flickr",
     "test/fixtures/flickr-download",
@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.2}
-  s.summary = %q{TODO}
+  s.summary = %q{Add git-style binaries to your project easily.}
   s.test_files = [
     "test/git-style-binary/command_test.rb",
     "test/git_style_binary_test.rb",
@@ -57,8 +57,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<trollop>, [">= 0"])
+      s.add_runtime_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     else
+      s.add_dependency(%q<trollop>, [">= 0"])
+      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     end
   else
+    s.add_dependency(%q<trollop>, [">= 0"])
+    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
   end
 end

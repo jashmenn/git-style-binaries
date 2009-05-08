@@ -5,14 +5,18 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "git-style-binaries"
-    gem.summary = %Q{TODO}
+    gem.description = %Q{Ridiculously easy git-style binaries}
+    gem.summary =<<-EOF 
+    Add git-style binaries to your project easily.
+    EOF
     gem.email = "nate@natemurray.com"
     gem.homepage = "http://github.com/jashmenn/git-style-binaries"
     gem.authors = ["Nate Murray"]
     gem.add_dependency 'trollop'
     gem.add_dependency 'thoughtbot-shoulda' # for running the tests
 
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    excludes = /(README\.html)/
+    gem.files = (FileList["[A-Z]*.*", "{bin,examples,generators,lib,rails,spec,test}/**/*", 'Rakefile', 'LICENSE*']).delete_if{|f| f =~ excludes}
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
