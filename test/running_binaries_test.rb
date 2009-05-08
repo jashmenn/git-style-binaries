@@ -15,7 +15,7 @@ class RunningBinariesTest < Test::Unit::TestCase
         end
 
         should "get a list of subcommands" do
-          output_matches /The wordpress subcommands are:/
+          output_matches /subcommands/mi
         end
 
         should "have subcommand short descriptions" do
@@ -26,7 +26,8 @@ class RunningBinariesTest < Test::Unit::TestCase
         end
 
         should "have a usage" do
-          output_matches /Usage: wordpress(\-help)? \[/
+          output_matches /SYNOPSIS/i
+          output_matches /wordpress(\-help)? \[/
         end
 
         should "be able to ask for help about help"
@@ -134,9 +135,9 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
 
       should "have options" do
-        output_matches /Options:/
-        output_matches /--blog, -b <s>:   short name of the blog to use \(default: default\)/
-        output_matches /--title, -i <s>:   title for the post/
+        output_matches /Options/i
+        output_matches /--blog, -b <s>:\s*short name of the blog to use \(default: default\)/m
+        output_matches /--title, -i <s>:\s*title for the post/m
       end
 
     end
