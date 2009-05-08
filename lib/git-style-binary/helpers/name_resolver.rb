@@ -69,7 +69,7 @@ module Helpers
       GitStyleBinary.known_commands.collect do |k,cmd| 
         next if k == basename 
         cmd.process_parser!
-        "%10-s %s" % [k, cmd.short_desc]
+        ("%s-%10-s" % [basename, k]).colorize(:blue) + "\n       " + ("%s" % [cmd.short_desc]) + "\n"
       end.compact.sort
     end
 

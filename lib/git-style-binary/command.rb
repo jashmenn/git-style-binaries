@@ -29,9 +29,10 @@ module GitStyleBinary
           version_string = defined?(VERSION) ? VERSION : "0.0.1"
           version "#{command.full_name} #{version_string} (c) #{Time.now.year}"
           banner <<-EOS
-Usage: #{command.full_name} #{all_options_string} COMMAND [ARGS]
+#{"SYNOPSIS".colorize(:red)}
+      #{command.full_name.colorize(:blue)} #{all_options_string}
 
-The wordpress subcommands are:
+#{"SUBCOMMANDS".colorize(:red)}
    \#{GitStyleBinary.pretty_known_subcommands.join("\n   ")}
 
 See '#{command.full_name} help COMMAND' for more information on a specific command.

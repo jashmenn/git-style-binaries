@@ -7,7 +7,7 @@ require 'open3'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 Dir[File.join(File.dirname(__FILE__), "shoulda_macros", "*.rb")].each {|f| require f}
-ENV['NO_COLOR'] = true
+ENV['NO_COLOR'] = "true"
 
 require 'git-style-binary'
 GitStyleBinary.run = true

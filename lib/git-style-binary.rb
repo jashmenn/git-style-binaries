@@ -1,5 +1,6 @@
 require 'trollop'
 require 'lib/ext/core'
+require 'lib/ext/colorize'
 require 'git-style-binary/autorunner'
 Dir[File.dirname(__FILE__) + "/git-style-binary/helpers/*.rb"].each {|f|  require f}
 
