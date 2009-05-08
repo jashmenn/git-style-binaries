@@ -8,8 +8,6 @@ GitStyleBinary.command do
 SYNOPSIS
       #{command.full_name} #{all_options_string} {content|STDIN} 
 
-Posts content to a wordpress blog 
-
 EOS
   opt :blog,     "short name of the blog to use", :default => 'default'
   opt :category, "tag/category. specify multiple times for multiple categories", :type => String, :multi => true

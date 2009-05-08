@@ -71,7 +71,7 @@ class Parser < Trollop::Parser
 
       if @name_desc
         stream.puts "NAME".colorize(:red)
-        stream.puts "#{leftcol_spaces}"+  eval(%Q["#{@name_desc}"]) + "\n"
+        stream.puts "#{leftcol_spaces}"+  colorize_known_words(eval(%Q["#{@name_desc}"])) + "\n"
         stream.puts
       end
 
@@ -169,6 +169,7 @@ class Parser < Trollop::Parser
 
   def colorize_known_words(txt)
     txt = txt.gsub(/^([A-Z]+\s*)$/, '\1'.colorize(:red))
+    txt = txt.gsub(/\b(#{bin_name})\b/, '\1'.colorize(:blue))
   end
 
   def consume(&block)
