@@ -9,6 +9,8 @@ begin
     gem.email = "nate@natemurray.com"
     gem.homepage = "http://github.com/jashmenn/git-style-binaries"
     gem.authors = ["Nate Murray"]
+    gem.add_dependency 'trollop'
+    gem.add_dependency 'thoughtbot-shoulda' # for running the tests
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
