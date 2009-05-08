@@ -11,7 +11,9 @@ class RunningBinariesTest < Test::Unit::TestCase
         setup { @stdout, @stderr = bin(format) }
 
         should "have the command name and short description" do
-          output_matches /NAME\n\s*wordpress\-help \- get help for a specific command/m
+          unless format == "wordpress -h" # doesn't apply to wordpress -h
+            output_matches /NAME\n\s*wordpress\-help \- get help for a specific command/m
+          end
         end
 
         should "have a local (not default) version string" do
@@ -160,7 +162,9 @@ class RunningBinariesTest < Test::Unit::TestCase
         setup { @stdout, @stderr = bin(format) }
 
         should "have the name and short description" do
-          output_matches /NAME\n\s*flickr\-help \- get help for a specific command/m
+          unless format == "flickr -h" # hmm
+            output_matches /NAME\n\s*flickr\-help \- get help for a specific command/m
+          end
         end
 
         should "have a local (not default) version string" do

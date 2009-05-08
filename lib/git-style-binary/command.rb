@@ -26,7 +26,7 @@ module GitStyleBinary
     class << self
       def defaults
         lambda do
-          name_desc "#{command.full_name} - \#{command.short_desc}" # eval jit
+          name_desc "#{command.full_name}\#{command.short_desc ? ' - ' + command.short_desc : ''}" # eval jit
           version_string = defined?(VERSION) ? VERSION : "0.0.1"
           version "#{version_string} (c) #{Time.now.year}"
           banner <<-EOS

@@ -4,7 +4,6 @@ $:.unshift(File.dirname(__FILE__) + "/../../lib")
 require 'git-style-binary/command'
 GitStyleBinary.primary do
   version "0.0.1 (c) 2009 Nate Murray - local"
-
   opt :test_primary, "test an option on the primary", :type => String
 
   run do |command|
