@@ -51,12 +51,12 @@ class Parser < Trollop::Parser
         "--#{spec[:long]}" +
         case spec[:type]
         when :flag; ""
-        when :int; " <i>"
-        when :ints; " <i+>"
-        when :string; " <s>"
-        when :strings; " <s+>"
-        when :float; " <f>"
-        when :floats; " <f+>"
+        when :int; "=<i>"
+        when :ints; "=<i+>"
+        when :string; "=<s>"
+        when :strings; "=<s+>"
+        when :float; "=<f>"
+        when :floats; "=<f+>"
         end 
     end
     # todo, get wrapping TODO
@@ -95,8 +95,7 @@ class Parser < Trollop::Parser
         else
           ""
         end
-      # stream.puts wrap(desc, :width => width - rightcol_start - 1, :prefix => rightcol_start)
-      stream.printf "        %s", desc
+      stream.puts wrap("      %s" % [desc], :prefix => leftcol_start, :width => width - rightcol_start - 1 )
       stream.puts
       stream.puts
     end
