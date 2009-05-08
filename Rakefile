@@ -60,3 +60,4 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+task :bump => ['version:bump:patch', 'gemspec', 'build']
