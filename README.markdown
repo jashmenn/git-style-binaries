@@ -7,7 +7,7 @@ This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 
 ## Installation
 
-    gem install jashmenn-git-style-binary --source=http://gems.github.com
+    gem install jashmenn-git-style-binaries --source=http://gems.github.com
 
 ## Goal
 
