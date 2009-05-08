@@ -80,7 +80,9 @@ class String
   #
   def colorize( params )
     
-    return self unless STDOUT.isatty
+    unless STDOUT.use_color
+      return self unless STDOUT.isatty
+    end
     return self if ENV['NO_COLOR']
     
     begin

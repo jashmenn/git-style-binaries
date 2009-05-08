@@ -11,3 +11,6 @@ class Symbol
   end
 end
 
+class IO
+  attr_accessor :use_color
+end

@@ -40,6 +40,7 @@ class Parser < Trollop::Parser
     load_all_commands
     width # just calculate it now; otherwise we have to be careful not to
           # call this unless the cursor's at the beginning of a line.
+    GitStyleBinary::Helpers::Pager.run_pager
     self.send("educate_#{theme}", stream) 
   end
 
@@ -60,7 +61,6 @@ class Parser < Trollop::Parser
         when :floats; "=<f+>"
         end).colorize(:red)
     end
-    # todo, get wrapping TODO
 
     leftcol_width = left.values.map { |s| s.length }.max || 0
     rightcol_start = leftcol_width + 6 # spaces

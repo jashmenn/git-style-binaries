@@ -159,6 +159,7 @@ such as `name`, `full_name`, `opts`, and `argv`.
 * `trollop` was written by [William Morgan](http://trollop.rubyforge.org/) 
 * Inspiration comes from Ari Lerner's [git-style-binaries](http://blog.xnot.org/2008/12/16/git-style-binaries/) for [PoolParty.rb](http://poolpartyrb.com)
 * [`colorize.rb`](http://colorize.rubyforge.org) by Michal Kalbarczyk
+* Automatic less paging by [Nathan Weizenbaum](http://nex-3.com/posts/73-git-style-automatic-paging-in-ruby)
 * Color inspiration from [Brian Henderson](http://xcombinator.com) teaching me how to get `man git` colors using `less` on MacOSX
 
 
