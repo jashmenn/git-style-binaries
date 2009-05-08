@@ -3,7 +3,7 @@ git-style-binaries
 
 Super simple git-style binaries.
 
-This gem builds on [`trollop`](http://trollop.rubyforge.org/)
+This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 
 ## Installation
 
@@ -134,22 +134,37 @@ Primary options are **inherited** by all subcommands. That means in this case
 all subcommands will now get the `--test-primary` option available to them as
 well as this new `version` string.
 
-## Tab completion
+## Option parsing
 
-Automatic for subcommands and options for any library that uses this
+Option parsing is done by [trollop](http://trollop.rubyforge.org/).
+`git-style-binary` uses this more-or-less exactly. See the [trollop
+documentation](http://trollop.rubyforge.org/) for information on how to setup
+the options and flags.
 
-## Colorization
+## The `run` block
 
-Maybe use a colorization library by default? See man git-add. add in how to get these colors via less on a mac.
+To get the 'introspection' on the individual binaries every binary is `load`ed
+on `primary help`. We need a way to get that information while not running
+every command when calling `primary help`. To achieve that you need to put what
+will be run in the `run` block. 
 
-## Authors
+`run` `yields` a `Command` object which contains a number of useful options
+such as `name`, `full_name`, `opts`, and `argv`. 
+
+* `command.opts` is a hash of the options parsed
+* `command.argv` is an array of the remaining arguments
+
+## Credits
 * `git-style-binary` was written by Nate Murray `<nate@natemurray.com>`
 * `trollop` was written by [William Morgan](http://trollop.rubyforge.org/) 
 * Inspiration comes from Ari Lerner's [git-style-binaries](http://blog.xnot.org/2008/12/16/git-style-binaries/) for [PoolParty.rb](http://poolpartyrb.com)
+* [`colorize.rb`](http://colorize.rubyforge.org) by Michal Kalbarczyk
+* Color inspiration from [Brian Henderson](http://xcombinator.com) teaching me how to get `man git` colors using `less` on MacOSX
+
 
 ## TODO
-* color
-* automagic tab completion
+* color - See `man git-add`
+* automagic tab completion - Automatic for subcommands and options for any library that uses this
 
 ## Copyright
 
