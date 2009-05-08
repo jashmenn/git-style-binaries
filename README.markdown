@@ -158,6 +158,10 @@ such as `name`, `full_name`, `opts`, and `argv`.
 * automatic colorization
 * automatic paging
 
+## To Learn more
+
+Play with the examples in the `test/fixtures` directory.
+
 ## Credits
 * `git-style-binary` was written by Nate Murray `<nate@natemurray.com>`
 * `trollop` was written by [William Morgan](http://trollop.rubyforge.org/) 
@@ -166,10 +170,13 @@ such as `name`, `full_name`, `opts`, and `argv`.
 * Automatic less paging by [Nathan Weizenbaum](http://nex-3.com/posts/73-git-style-automatic-paging-in-ruby)
 * Color inspiration from [Brian Henderson](http://xcombinator.com) teaching me how to get `man git` colors using `less` on MacOSX
 
-
 ## TODO
-* color - See `man git-add`
 * automagic tab completion - Automatic for subcommands and options for any library that uses this
+
+## Known Bugs/Problems
+* Young
+* A few places of really ugly code
+* A feeling that this could be done in 1/2 lines of code
 
 ## Copyright
 
