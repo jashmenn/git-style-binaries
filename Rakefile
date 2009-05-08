@@ -17,6 +17,7 @@ begin
 
     excludes = /(README\.html)/
     gem.files = (FileList["[A-Z]*.*", "{bin,examples,generators,lib,rails,spec,test}/**/*", 'Rakefile', 'LICENSE*']).delete_if{|f| f =~ excludes}
+    gem.extra_rdoc_files = FileList["README*", "ChangeLog*", "LICENSE*"].delete_if{|f| f =~ excludes}
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"

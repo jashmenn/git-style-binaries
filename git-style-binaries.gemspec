@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-style-binaries}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nate Murray"]
@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.description = %q{Ridiculously easy git-style binaries}
   s.email = %q{nate@natemurray.com}
   s.extra_rdoc_files = [
-    "README.html",
     "README.markdown"
   ]
   s.files = [
