@@ -154,6 +154,10 @@ such as `name`, `full_name`, `opts`, and `argv`.
 * `command.opts` is a hash of the options parsed
 * `command.argv` is an array of the remaining arguments
 
+## Features
+* automatic colorization
+* automatic paging
+
 ## Credits
 * `git-style-binary` was written by Nate Murray `<nate@natemurray.com>`
 * `trollop` was written by [William Morgan](http://trollop.rubyforge.org/) 
