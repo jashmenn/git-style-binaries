@@ -74,21 +74,47 @@ And so on with the other binaries.
 
 Now if we run `wordpress -h` we get the following output:
      
-    wordpress 0.0.1 (c) 2009 Nate Murray
-    Usage: wordpress [--version] [--help] [--verbose] COMMAND [ARGS] COMMAND [ARGS]
+    NAME
+          wordpress
 
-    The wordpress subcommands are:
-       categories do something with categories
-       help       get help for a specific command
-       list       list blog postings
-       post       create a blog post
+    VERSION
+          0.0.1 (c) 2009 Nate Murray - local
 
-    See 'wordpress help COMMAND' for more information on a specific command.
+    SYNOPSIS
+          wordpress [--version] [--test-primary] [--help] [--verbose] COMMAND [ARGS]
 
-    Options:
-               --verbose, -v:   verbose
-               --version, -e:   Print version and exit
-                  --help, -h:   Show this message
+    SUBCOMMANDS
+       wordpress-categories
+           do something with categories
+
+       wordpress-help      
+           get help for a specific command
+
+       wordpress-list      
+           list blog postings
+
+       wordpress-post      
+           create a blog post
+
+
+      See 'wordpress help COMMAND' for more information on a specific command.
+
+    OPTIONS
+        -v, --verbose         
+          verbose
+
+
+        -t, --test-primary=<s>
+          test an option on the primary
+
+
+        -e, --version         
+          Print version and exit
+
+
+        -h, --help            
+          Show this message
+
 
 
 Default **options**, **version string**, and **usage banner** are automatically selected for you. 
@@ -99,19 +125,49 @@ connecting `-`) or use the built-in `help` subcommand for the same effect. For i
 
     $ wordpress help post
 
-    wordpress-post 0.0.1 (c) 2009 Nate Murray - local
-    Usage: wordpress-post [--type] [--version] [--category] [--help] [--title] [--verbose] [--blog] COMMAND [ARGS] {content|STDIN} 
+    NAME
+          wordpress-post - create a blog post
 
-    Posts content to a wordpress blog 
+    VERSION
+          0.0.1 (c) 2009 Nate Murray - local
 
-    Options:
-               --verbose, -v:   verbose
-              --blog, -b <s>:   short name of the blog to use (default: default)
-          --category, -c <s>:   tag/category. specify multiple times for multiple categories
-             --title, -i <s>:   title for the post
-              --type, -y <s>:   type of the content [html|xhtml|text] (default: html)
-               --version, -e:   Print version and exit
-                  --help, -h:   Show this message
+    SYNOPSIS
+          wordpress-post [--type] [--version] [--test-primary] [--blog] [--help] [--verbose] [--category]
+          [--title] COMMAND [ARGS] {content|STDIN} 
+
+    OPTIONS
+        -v, --verbose         
+          verbose
+
+
+        -t, --test-primary=<s>
+          test an option on the primary
+
+
+        -b, --blog=<s>        
+          short name of the blog to use (default: default)
+
+
+        -c, --category=<s>    
+          tag/category. specify multiple times for multiple
+          categories
+
+
+        -i, --title=<s>       
+          title for the post
+
+
+        -y, --type=<s>        
+          type of the content [html|xhtml|text] (default: html)
+
+
+        -e, --version         
+          Print version and exit
+
+
+        -h, --help            
+          Show this message
+
 
 For more examples, see the binaries in `test/fixtures/`.
 
