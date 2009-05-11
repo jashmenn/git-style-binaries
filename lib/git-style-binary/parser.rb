@@ -199,6 +199,10 @@ class Parser < Trollop::Parser
   def run(&block)
     @runs << block
   end
+  
+  def action(name = :action, &block)
+    block.call(self) if block
+  end
  
 end
 end

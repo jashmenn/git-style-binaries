@@ -13,5 +13,6 @@ Does something with categories
 EOS
   run do |command|
     puts "does something with categories"
+    puts @categories.join(" ")
   end
 end

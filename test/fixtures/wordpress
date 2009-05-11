@@ -5,6 +5,10 @@ require 'git-style-binary/command'
 GitStyleBinary.primary do
   version "0.0.1 (c) 2009 Nate Murray - local"
   opt :test_primary, "test an option on the primary", :type => String
+  
+  action do
+    @categories = ["sports", "news"]
+  end
 
   run do |command|
     puts "Primary Options: #{command.opts.inspect}"

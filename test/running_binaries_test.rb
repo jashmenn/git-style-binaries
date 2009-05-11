@@ -62,6 +62,22 @@ class RunningBinariesTest < Test::Unit::TestCase
     end
     should "be able to require 'primary' and run just fine"
   end
+  
+  context "when running with an action" do
+    # should be the same for both formats
+    ["wordpress-categories", "wordpress categories"].each do |bin_format|
+      context "#{bin_format}" do
+
+        context "with action block" do
+          setup { @stdout, @stderr = bin("#{bin_format}") }
+          should "have the parsed action items in the help output" do
+            output_matches /sports news/m
+          end
+        end
+      end
+    end
+  end
+  
 
   context "when running the subcommand" do
     # should be the same for both formats
