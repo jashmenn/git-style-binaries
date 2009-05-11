@@ -78,6 +78,18 @@ class RunningBinariesTest < Test::Unit::TestCase
     end
   end
   
+  context "callbacks" do
+    setup { @stdout, @stderr = bin("wordpress") }
+    
+    %w(load run).each do |event|
+      %w(before after).each do |time|
+        should "run the callback #{time}_#{event}" do
+          assert @stdout.match /running callback #{time}_#{event}/
+        end
+      end
+    end
+  end
+  
 
   context "when running the subcommand" do
     # should be the same for both formats

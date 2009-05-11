@@ -10,8 +10,10 @@ GitStyleBinary.primary do
     @categories = ["sports", "news"]
   end
   
-  after_load do |command|
-    puts "Loading...: #{command.opts[:version]}"
+  %w(load run).each do |event|
+    %w(before after).each do |time|
+      puts "running callback #{time}_#{event}"
+    end
   end
 
   run do |command|
