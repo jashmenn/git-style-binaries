@@ -246,6 +246,9 @@ Play with the examples in the `test/fixtures` directory.
 * A few places of really ugly code
 * A feeling that this could be done in 1/2 lines of code
 
+## Authors
+By Nate Murray and Ari Lerner
+
 ## Copyright
 
 The MIT License
