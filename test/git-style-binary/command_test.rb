@@ -12,5 +12,6 @@ class CommandTest < Test::Unit::TestCase
       @c.constraints << "foo"
       assert_equal @c.constraints, ["foo"]
     end
+    
   end
 end

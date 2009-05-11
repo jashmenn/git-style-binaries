@@ -79,15 +79,26 @@ class RunningBinariesTest < Test::Unit::TestCase
   end
   
   context "callbacks" do
-    setup { @stdout, @stderr = bin("wordpress") }
-    
-    %w(load run).each do |event|
+    context "on a binary" do
+      setup { @stdout, @stderr = bin("wordpress") }
+
       %w(before after).each do |time|
-        should "run the callback #{time}_#{event}" do
-          assert @stdout.match /running callback #{time}_#{event}/
+        should "run the callback #{time}_run}" do
+          assert @stdout.match /#{time}_run command/
         end
-      end
+      end      
     end
+    
+    context "on help" do
+      setup { @stdout, @stderr = bin("wordpress -h") }
+
+      %w(before after).each do |time|
+        should "not run the callback #{time}_run" do
+          assert_nil @stdout.match /#{time}_run command/
+        end
+      end      
+    end
+    
   end
   
 

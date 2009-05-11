@@ -12,7 +12,7 @@ class Parser < Trollop::Parser
   
   def setup_callbacks
     @callbacks =  {}
-    %w(load run).each do |event|
+    %w(run).each do |event|
       %w(before after).each do |time|
         @callbacks["#{time}_#{event}".to_sym] = []
         instance_eval "def #{time}_#{event}(&block);@callbacks[:#{time}_#{event}] << block;end"

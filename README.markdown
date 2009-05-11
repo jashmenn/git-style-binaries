@@ -203,6 +203,12 @@ Option parsing is done by [trollop](http://trollop.rubyforge.org/).
 documentation](http://trollop.rubyforge.org/) for information on how to setup
 the options and flags.
 
+## Callbacks
+
+Callbacks are available on the primary and subcommands. Available callbacks currently
+are before/after_run. These execute before the run block of the command parser and take
+take one argument, which is the command itself
+
 ## The `run` block
 
 To get the 'introspection' on the individual binaries every binary is `load`ed

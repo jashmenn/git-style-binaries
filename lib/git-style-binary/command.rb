@@ -70,12 +70,8 @@ module GitStyleBinary
       GitStyleBinary.load_primary    unless is_primary?      
       GitStyleBinary.load_subcommand if is_primary? && running_subcommand?
       load_all_parser_constraints
-      parser.run_callbacks(:before_load, self)
       @opts = process_args_with_subcmd
-      parser.run_callbacks(:after_load, self)
-      parser.run_callbacks(:before_run, self)
-      call_parser_run_block
-      parser.run_callbacks(:after_run, self)
+      call_parser_run_block      
       self
     end
 
@@ -113,7 +109,11 @@ module GitStyleBinary
 
     def call_parser_run_block
       runs = GitStyleBinary.current_command.parser.runs
+      
+      puts "Calling call_parser_run_block"
+      parser.run_callbacks(:before_run, self)
       parser.runs.last.call(self) # ... not too happy with this
+      parser.run_callbacks(:after_run, self)      
     end
 
     def process_args_with_subcmd(args = ARGV, *a, &b)
@@ -184,6 +184,11 @@ module GitStyleBinary
       p = parser # create local copy
       Trollop.instance_eval { @p = p }
       Trollop::die(arg, msg)
+    end
+    
+    # Helper to return the option
+    def [](k)
+      opts[k]
     end
 
   end

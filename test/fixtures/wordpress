@@ -10,10 +10,12 @@ GitStyleBinary.primary do
     @categories = ["sports", "news"]
   end
   
-  %w(load run).each do |event|
-    %w(before after).each do |time|
-      puts "running callback #{time}_#{event}"
-    end
+  before_run do |cmd|
+    puts "before_run command #{cmd}"
+  end
+  
+  after_run do |cmd|
+    puts "after_run command #{cmd}"
   end
 
   run do |command|
