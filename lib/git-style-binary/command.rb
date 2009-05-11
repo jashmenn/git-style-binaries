@@ -31,7 +31,7 @@ module GitStyleBinary
           version "#{version_string} (c) #{Time.now.year}"
           banner <<-EOS
 #{"SYNOPSIS".colorize(:red)}
-      #{command.full_name.colorize(:blue)} #{all_options_string}
+      #{command.full_name.colorize(:light_blue)} #{all_options_string}
 
 #{"SUBCOMMANDS".colorize(:red)}
    \#{GitStyleBinary.pretty_known_subcommands.join("\n   ")}

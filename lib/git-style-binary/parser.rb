@@ -175,7 +175,7 @@ class Parser < Trollop::Parser
 
   def colorize_known_words(txt)
     txt = txt.gsub(/^([A-Z]+\s*)$/, '\1'.colorize(:red))       # all caps words on their own line
-    txt = txt.gsub(/\b(#{bin_name})\b/, '\1'.colorize(:blue))  # the current command name
+    txt = txt.gsub(/\b(#{bin_name})\b/, '\1'.colorize(:light_blue))  # the current command name
     txt = txt.gsub(/\[([^\s]+)\]/, "[".colorize(:magenta) + '\1'.colorize(:green) + "]".colorize(:magenta)) # synopsis options
   end
 
