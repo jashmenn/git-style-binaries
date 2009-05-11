@@ -1,12 +1,27 @@
 module GitStyleBinary
 class Parser < Trollop::Parser
-  attr_reader :runs
+  attr_reader :runs, :callbacks
   attr_reader :short_desc
   attr_accessor :command
 
   def initialize *a, &b
     super
     @runs = []
+    setup_callbacks    
+  end
+  
+  def setup_callbacks
+    @callbacks =  {}
+    %w(load run).each do |event|
+      %w(before after).each do |time|
+        @callbacks["#{time}_#{event}".to_sym] = []
+        instance_eval "def #{time}_#{event}(&block);@callbacks[:#{time}_#{event}] << block;end"
+      end
+    end
+  end
+  
+  def run_callbacks(at, from)
+    @callbacks[at].each {|c| c.call(from) }
   end
 
   def banner      s=nil; @banner     = s if s; @banner     end

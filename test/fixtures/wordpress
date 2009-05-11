@@ -9,6 +9,10 @@ GitStyleBinary.primary do
   action do
     @categories = ["sports", "news"]
   end
+  
+  after_load do |command|
+    puts "Loading...: #{command.opts[:version]}"
+  end
 
   run do |command|
     puts "Primary Options: #{command.opts.inspect}"
