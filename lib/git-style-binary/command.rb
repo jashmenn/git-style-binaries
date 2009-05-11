@@ -110,7 +110,6 @@ module GitStyleBinary
     def call_parser_run_block
       runs = GitStyleBinary.current_command.parser.runs
       
-      puts "Calling call_parser_run_block"
       parser.run_callbacks(:before_run, self)
       parser.runs.last.call(self) # ... not too happy with this
       parser.run_callbacks(:after_run, self)      
