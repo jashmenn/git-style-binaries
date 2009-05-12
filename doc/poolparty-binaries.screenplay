@@ -1,0 +1,45 @@
+#!/usr/bin/env castanaut
+# Castanaut screencast file. sudo gem install castanaut
+
+# see if there is a terminal module
+# download the 'ttyrecord' binary
+# get castanaut src
+# get applescript docs
+plugin "terminal"
+plugin "keystack"
+
+launch "Terminal", at(10, 10, 800, 600)
+
+# say <<-eos
+# Hey, welcome to the git-style-binaries screencast. 
+# First, lets talk a little about what a git-style-binary even is. 
+# eos
+
+pause 1
+while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
+  type "git-"
+  pause 1
+  keystroke_literal('tab')
+  keystroke_literal('tab')
+  type "y"
+  pause 2
+  type " "
+  keystroke_using('u', :control)
+end
+
+while_saying "so, for instance, we have. git-add. for adding files. git-status for getting the status of our repo and so on" do
+  cli "git-add"
+  pause 2
+  cli "git-status"
+end
+
+while_saying "we want to emulate that effect with poolparty." do
+  cli "cd #{ENV['POOLPARTY_SRC']}" 
+end
+
+pause 2
+
+while_saying "just in case you're not familiar with poolparty, its a cloud management system. "
+# open safari poolpartyrb.com
+
+# vim: ft=ruby
