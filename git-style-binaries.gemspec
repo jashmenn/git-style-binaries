@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-style-binaries}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nate Murray"]
-  s.date = %q{2009-05-11}
+  s.date = %q{2009-05-12}
   s.description = %q{Ridiculously easy git-style binaries}
   s.email = %q{nate@natemurray.com}
   s.extra_rdoc_files = [
