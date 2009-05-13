@@ -8,38 +8,114 @@
 plugin "terminal"
 plugin "keystack"
 
-launch "Terminal", at(10, 10, 800, 600)
+perform "Introduction" do
+  launch "Terminal", at(10, 10, 800, 600)
 
-# say <<-eos
-# Hey, welcome to the git-style-binaries screencast. 
-# First, lets talk a little about what a git-style-binary even is. 
-# eos
-
-pause 1
-while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
-  type "git-"
-  pause 1
-  keystroke_literal('tab')
-  keystroke_literal('tab')
-  type "y"
-  pause 2
-  type " "
-  keystroke_using('u', :control)
+  say <<-eos
+  Hey, welcome to the git-style-binaries screencast. 
+  First, lets talk a little about what a git-style-binary even is. 
+  eos
 end
 
-while_saying "so, for instance, we have. git-add. for adding files. git-status for getting the status of our repo and so on" do
-  cli "git-add"
-  pause 2
-  cli "git-status"
+cli "cd #{ENV['POOLPARTY_SRC']}" 
+
+# perform "Describing Git Binaries" do
+#   pause 1
+#   while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
+#     type "git-"
+#     pause 1
+#     keystroke_literal('tab')
+#     keystroke_literal('tab')
+#     type "y"
+#     pause 2
+#     type " "
+#     keystroke_using('u', :control)
+#   end
+
+#   while_saying "for instance, we have. git-add for adding files. git-status for
+#   getting the status of our repo and so on" do
+#     cli "git-add"
+#     pause 2
+#     cli "git-status"
+#   end
+
+#   while_saying "one of the nice things about the git-style-binaries is that you
+#   can choose to call the command with or without the dash.. so for instance, i
+#   can call either 'git-add' or 'git add'." do
+#   end
+
+#   perform "Describe Help" do
+#     while_saying "the help in git is also very handy. for instance, if you call
+#     git -h it will give you a listing of many of the available subcommands" do
+#     end
+
+#     while_saying "you can get the same effect by typing 'git help'" do
+#     end
+
+#     while_saying "you can also ask for help about any of the subcommands. if we
+#     want to get help on 'git-add', we simply type 'git help add'" do
+#     end
+#   end
+
+#   perform "Describe Validation" do
+#     while_saying "git also performs option validation, as you would expect. for
+#     instance, if we provide an invalid option such as 'asdf' we get an error" do
+#       cli "git add --asdf"
+#     end
+#   end
+
+# end
+
+# while_saying "the goal of the ruby gem git-style-binaries is to bring this
+# functionality to your own custom binaries in an easy-to-use way" do
+# end
+
+# pause 2
+
+# perform "Introducing PoolParty" do
+#   while_saying "we're going to be using PoolParty's binaries as an example on how to build git-style-binaries using this gem" do
+#   end
+
+
+#   while_saying "just in case you're not familiar with poolparty, its a cloud
+#   management system by Ari Lerner. It allows you to manage your cloud using ruby
+#   code and plugins rather than, say, folders of bash scripts." do
+#   open safari poolpartyrb.com
+#   end
+
+#   while_saying "in poolparty the main binary is 'cloud'. we can do cloud help to see all of the available subcommands." do
+#   end
+
+#   while_saying "as you can see here we have 'cloud-start', for starting our
+#   cloud, 'cloud configure' to reconfigure our cloud after we change something,
+#   even cloud-ssh, to ssh directly into a node of our cloud."
+
+#   pause 2
+
+#   while_saying "what i'd like to do is, rather than just opening up the existing
+#   binaries, Im going to build poolparty-like binaries from the ground up. this
+#   way you can see how to do this on your own."
+# end
+
+perform "something" do
+    cli "cd ~" 
+    cli "mkdir -p poolparty-gsb-test/bin"
+    cli "cd poolparty-gsb-test"
+  
+    while_saying "first we need to create our *primary* binary." do
+      cli "vim bin/cloud"
+      pause 2
+      type "i#!/usr/bin/env rubyrequire 'git-style-binary/command'"
+      type ":w"
+      keystroke_literal('return')
+      cli ":e"
+    end
 end
 
-while_saying "we want to emulate that effect with poolparty." do
-  cli "cd #{ENV['POOLPARTY_SRC']}" 
+def cleanup
+  FileUtils.rm(File.expand_path("~/poolparty-gsb-test/bin/cloud"))
 end
 
-pause 2
-
-while_saying "just in case you're not familiar with poolparty, its a cloud management system. "
-# open safari poolpartyrb.com
+cleanup
 
 # vim: ft=ruby
