@@ -97,23 +97,75 @@ cli "cd #{ENV['POOLPARTY_SRC']}"
 #   way you can see how to do this on your own."
 # end
 
-perform "something" do
-    cli "cd ~" 
-    cli "mkdir -p poolparty-gsb-test/bin"
-    cli "cd poolparty-gsb-test"
-  
-    while_saying "first we need to create our *primary* binary." do
-      cli "vim bin/cloud"
-      pause 2
-      type "i#!/usr/bin/env rubyrequire 'git-style-binary/command'"
-      type ":w"
-      keystroke_literal('return')
-      cli ":e"
-    end
+cli "cd ~" 
+cli "mkdir -p poolparty-gsb-test/bin"
+cli "cd poolparty-gsb-test"
+ 
+# perform "creating primary" do
+#     while_saying "first we need to create our *primary* binary." do
+#       cli "vim bin/cloud"
+#       pause 2
+#       type_pre <<-eof 
+# i#!/usr/bin/env ruby
+# require 'git-style-binary/command'
+# eof
+#       cli ":w"
+#       cli ":e"
+#     end
+
+#     while_saying "and thats it! thats all we need if we want the default functionality"  do
+#       cli ":x"
+#     end
+# end
+
+pause 1
+
+# opt :cloud_name, "Name of the working cloud", :type => String, :default => nil
+
+perform "creating subcommands" do
+  while_saying "now lets create cloud-start.
+  we start by requiring git-style-binary/command, just like last time.
+  now we open up a #command block.
+  specify a version.
+  specify a banner and a short description.
+  and we put what we want to do in the 'run' block." do
+
+  cli "vim bin/cloud-start"
+  pause 1
+  vim_insert <<-eof
+#!/usr/bin/env ruby
+eof
+  cli ":w"
+  cli ":e"
+  type "j"
+
+  vim_insert <<-eof
+require 'git-style-binary/command'
+
+GitStyleBinary.command do
+  version "PoolParty cloud-start 0.0.1"  
+  banner <<-\EOS
+Usage: \#{$0} \#{all_options_string}
+
+EOS
+
+  short_desc "List the clouds"
+
+  run do |command|
+    puts "Options: \#{command.opts.inspect}"
+  end
+end
+eof
+  end
+
+  # while_saying "the run block yields a command object. commands has an 'opts' attribute accessor, or you can just use brackets on 'command'"
+  # type ":0/putsDiputs \"verbose is: \#{command[:verbose]}\""
+  # cli ":w"
+
 end
 
 def cleanup
-  FileUtils.rm(File.expand_path("~/poolparty-gsb-test/bin/cloud"))
+  FileUtils.rm_rf(File.expand_path("~/poolparty-gsb-test/bin"))
 end
 
 cleanup
