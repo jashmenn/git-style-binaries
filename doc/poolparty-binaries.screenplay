@@ -137,6 +137,7 @@ perform "creating subcommands" do
 eof
   cli ":w"
   cli ":e"
+  cli ":set paste" # no auto indending
   type "j"
 
   vim_insert <<-eof
@@ -145,10 +146,12 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   version "PoolParty cloud-start 0.0.1"  
   banner <<-\EOS
-Usage: \#{$0} \#{all_options_string}
+Usage: \#{\$0} \#{all_options_string}
 
 EOS
+eof
 
+  vim_insert <<-eof
   short_desc "List the clouds"
 
   run do |command|
@@ -158,11 +161,94 @@ end
 eof
   end
 
-  # while_saying "the run block yields a command object. commands has an 'opts' attribute accessor, or you can just use brackets on 'command'"
-  # type ":0/putsDiputs \"verbose is: \#{command[:verbose]}\""
-  # cli ":w"
+  while_saying "the run block yields a command object. commands has an 'opts' attribute accessor, or you can just use brackets on 'command'" do
+    type ":0/putsDiputs \"verbose is: \#{command[:verbose]}\""
+    cli ":w"
+  end
+
+  while_saying "you can add more options by calling 'opt' in the command block" do
+    # add more options
+  end
+  while_saying "git-style-binaries uses the gem trollop for the option parsing.
+  trollop allows you to easily add validations and type conversions to options.
+  see their website for information on the syntax" do
+  end
+
+  while_saying "now lets run cloud-start -h" do
+    # run it
+  end
+  while_saying "notice a few things here. we've got automatic coloring, a list of all of our flags, and a list of all of our options. trollop has even automatically created the short flags for us"  do
+    # move the mouse over the right areas
+  end
+
+  while_saying "i'd like to show you a few more features of gsb. first lets create one more simple binary - cloud ssh" do
+
+  cli "vim bin/cloud-ssh"
+  pause 1
+  vim_insert <<-eof
+#!/usr/bin/env ruby
+eof
+  cli ":w"
+  cli ":e"
+  cli ":set paste" # no auto indending
+  type "j"
+
+  vim_insert <<-eof
+require 'git-style-binary/command'
+
+GitStyleBinary.command do
+  version "PoolParty cloud-ssh 0.0.1"  
+  banner <<-\EOS
+Usage: \#{\$0} \#{all_options_string}
+
+EOS
+eof
+
+  vim_insert <<-eof
+  short_desc "ssh into your cloud"
+  opt :name,    "name of the cloud", :type => String
+
+  run do |command|
+    puts "you're ssh'ing into \#{command[:name]}!"
+  end
+end
+eof
+  end
+
+  while_saying "now we have two binaries, cloud-start and cloud-ssh" do
+    cli "tree ."
+  end
+
+  while_saying "one of the cool things about gsb is that it will automatically pick up these files when you run the help commands" do
+    cli "cloud -h"
+  end
+
+  while_saying "see, here we have both cloud-start and cloud-ssh, along with their short descriptions, which are automatically loaded from their respective files" do
+    # move mouse
+  end
 
 end
+
+perform "subcommand inherits primary" do
+
+  # adding options to primary gives options to the secondary
+  # adding before_run blocks to the primary
+  # primary -h shows the list of subcommands
+  # short theme
+
+  while_saying "notice that if we do cloud help start. we see that it already has a number of options. these options come from the default binary options. " do
+  end
+
+  while_saying "gsb's get their options from three places 1) the default in code 2) the primary and 3) the subcommand itself" do
+  end
+
+  while_saying "if we add options to our primary these will be automatically inherited by the subcommands."
+
+  while_saying "here we add a "
+
+end
+
+
 
 def cleanup
   FileUtils.rm_rf(File.expand_path("~/poolparty-gsb-test/bin"))
