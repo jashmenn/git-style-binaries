@@ -65,11 +65,11 @@ module Helpers
       $0
     end
 
-    def pretty_known_subcommands
+    def pretty_known_subcommands(theme=:long)
       GitStyleBinary.known_commands.collect do |k,cmd| 
         next if k == basename 
         cmd.process_parser!
-        ("%-s%s%-10s" % [basename, '-', k]).colorize(:light_blue) + "\n       " + ("%s" % [cmd.short_desc]) + "\n"
+        ("%-s%s%-10s" % [basename, '-', k]).colorize(:light_blue) + ("%s       " % [theme == :long ? "\n" : ""]) + ("%s" % [cmd.short_desc]) + "\n"
       end.compact.sort
     end
 
