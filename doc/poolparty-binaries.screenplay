@@ -198,13 +198,15 @@ eof
 
   while_saying "you can add more options by calling 'opt' in the command block" do
     vim_line_after("short_")
-    vim_insert "  opt :name, \"the name of the cloud you are starting\", :type => String,:default => \"default\""
+    vim_insert "  opt :name, \"the name of the cloud you are starting\", :type => String,    :default => \"default\""
   end
 
   while_saying "git-style-binaries uses the gem trollop for the option parsing.
   trollop allows you to easily add validations and type conversions to options.
   see their website for information on the syntax" do
   end
+  # cli ":x"
+  pause 2
 end
 
 perform "running cloud-start" do
@@ -232,15 +234,18 @@ perform "running cloud-start" do
     pause 1
     move to(53, 255)
   end
-  pause 4
+  pause 3
   type "q"
   keystroke_using('w', :command) # go back to terminal
+  pause 2
 end
 
 
 perform "creating cloud-ssh" do
 
   while_saying "i'd like to show you a few more features of gsb. first lets create one more simple binary - cloud ssh" do
+  cli ":x"
+  pause 1
 
   cli "vim bin/cloud-ssh"
   pause 1
@@ -272,6 +277,9 @@ eof
   end
 end
 eof
+  pause 1
+  cli ":x"
+  pause 2
   end
 
 end
