@@ -39,7 +39,7 @@ module GitStyleBinary
   See '#{command.full_name} help COMMAND' for more information on a specific command.
         EOS
 
-          opt :verbose,  "verbose", :default => false
+          # opt :verbose,  "verbose", :default => false
         end
       end
     end

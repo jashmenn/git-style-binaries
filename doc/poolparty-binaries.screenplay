@@ -294,7 +294,7 @@ dont_perform "show help with both binaries" do
 
 end
 
-perform "subcommand inherits primary" do
+dont_perform "modify cloud primary" do
 
   while_saying "notice that if we do cloud help start. we see that it already
   has a number of options. these options come from the default binary options." do
@@ -325,10 +325,36 @@ perform "subcommand inherits primary" do
 
   while_saying "we want to be able to specify the name of our clouds.rb
   specfile in any of the subcommands. so all we need to do is add that to the
-  primary" do 
+  primary.
+
+  now when we want to customize the primary we need to do a bit more work.
+  " do 
+    cli "vim bin/cloud"
+    pause 1
+    type "jj"
+    vim_insert <<-eof
+GitStyleBinary.primary do
+  version "PoolParty cloud command"  
+banner <<-\EOS
+eof
+    vim_insert <<-eof
+Usage: cloud \#{all_options_string} COMMAND [ARGS]
+
+The cloud subcommands commands are:
+  \#{GitStyleBinary.pretty_known_subcommands(:short).join("  ")}
+EOS
+  opt :spec, "The name of the clouds.rb file", :type => String
+end
+eof
+    type ":x"
   end
+end
+
+perform "show subcommand opts" do
 
   while_saying "now if we run the subcommand -h, we see that the spec option is there" do
+    cli "./bin/cloud-start -h"
+    pause 1
   end
 
   while_saying "you can also specify callbacks in your primary if you want to.
