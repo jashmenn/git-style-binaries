@@ -68,12 +68,7 @@ end
 
 at_exit do
   unless $! || GitStyleBinary.run?
-begin
     command = GitStyleBinary::AutoRunner.run
-rescue Exception => e
-  puts "Exception: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
-  exit 1
-end
     exit 0
   end
 end
