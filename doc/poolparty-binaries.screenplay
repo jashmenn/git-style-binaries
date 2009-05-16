@@ -10,6 +10,7 @@ plugin "keystack"
 
 perform "Introduction" do
   launch "Terminal", at(10, 10, 800, 600)
+  pause 1
 
   say <<-eos
   Hey, welcome to the git-style-binaries screencast. 
@@ -19,110 +20,133 @@ end
 
 cli "cd #{ENV['POOLPARTY_SRC']}" 
 
-# perform "Describing Git Binaries" do
-#   pause 1
-#   while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
-#     type "git-"
-#     pause 1
-#     keystroke_literal('tab')
-#     keystroke_literal('tab')
-#     type "y"
-#     pause 2
-#     type " "
-#     keystroke_using('u', :control)
-#   end
+dont_perform "Describing Git Binaries" do
+  pause 1
+  while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
+    type "git-"
+    pause 1
+    keystroke_literal('tab')
+    keystroke_literal('tab')
+    type "y"
+    pause 2
+    type " "
+    keystroke_using('u', :control)
+  end
 
-#   while_saying "for instance, we have. git-add for adding files. git-status for
-#   getting the status of our repo and so on" do
-#     cli "git-add"
-#     pause 2
-#     cli "git-status"
-#   end
+  while_saying "for instance, we have. git-add for adding files. git-status for
+  getting the status of our repo and so on" do
+    cli "git-add"
+    pause 2
+    cli "git-status"
+  end
 
-#   while_saying "one of the nice things about the git-style-binaries is that you
-#   can choose to call the command with or without the dash.. so for instance, i
-#   can call either 'git-add' or 'git add'." do
-#   end
+  while_saying "one of the nice things about the git-style-binaries is that you
+  can choose to call the command with or without the dash.. so for instance, i
+  can call either 'git-add' or 'git add'." do
+    cli "git-add"
+    pause 2
+    cli "git add"
+  end
 
-#   perform "Describe Help" do
-#     while_saying "the help in git is also very handy. for instance, if you call
-#     git -h it will give you a listing of many of the available subcommands" do
-#     end
+  perform "Describe Help" do
+    while_saying "the help in git is also very handy. for instance, if you call
+    git help it will give you a listing of many of the available subcommands" do
+      cli "git help"
+      move to(44, 94)
+      move to(133, 87)
+      move to(127, 346)
+      move to(41, 343)
+      move to(44, 94)
+    end
 
-#     while_saying "you can get the same effect by typing 'git help'" do
-#     end
+    while_saying "you can also ask for help about any of the subcommands. if we
+    want to get help on 'git-add', we simply type 'git help add'" do
+      cli "git help add"
+      type 'q'
+    end
+  end
 
-#     while_saying "you can also ask for help about any of the subcommands. if we
-#     want to get help on 'git-add', we simply type 'git help add'" do
-#     end
-#   end
+  pause 2
 
-#   perform "Describe Validation" do
-#     while_saying "git also performs option validation, as you would expect. for
-#     instance, if we provide an invalid option such as 'asdf' we get an error" do
-#       cli "git add --asdf"
-#     end
-#   end
+  perform "Describe Validation" do
+    while_saying "git also performs option validation, as you would expect. for
+    instance, if we provide an invalid option such as 'asdf' we get an error" do
+      cli "git add --asdf"
+    end
+  end
 
-# end
+  while_saying "the goal of the git-style-binaries ruby gem is to bring this
+  functionality to your own custom binaries in an easy-to-use way. so lets take
+  a look at an example" 
+  pause 2
 
-# while_saying "the goal of the ruby gem git-style-binaries is to bring this
-# functionality to your own custom binaries in an easy-to-use way" do
-# end
-
-# pause 2
-
-# perform "Introducing PoolParty" do
-#   while_saying "we're going to be using PoolParty's binaries as an example on how to build git-style-binaries using this gem" do
-#   end
+end
 
 
-#   while_saying "just in case you're not familiar with poolparty, its a cloud
-#   management system by Ari Lerner. It allows you to manage your cloud using ruby
-#   code and plugins rather than, say, folders of bash scripts." do
-#   open safari poolpartyrb.com
-#   end
+dont_perform "Introducing PoolParty" do
+  while_saying "we're going to be using PoolParty's binaries as an example on
+  how to build git-style-binaries using this gem" do
+  end
 
-#   while_saying "in poolparty the main binary is 'cloud'. we can do cloud help to see all of the available subcommands." do
-#   end
+  while_saying "just in case you're not familiar with poolparty, its a cloud
+  management system by Ari Lerner. It allows you to manage your cloud using ruby
+  code and plugins rather than, say, folders of bash scripts." do
+    # launch "Safari", at(10, 10, 800, 600)
+    # url "http://www.poolpartyrb.com" # ?
+    # pause 3
+    # keystroke_literal_using('tab', :command) # go back to terminal
+  end
 
-#   while_saying "as you can see here we have 'cloud-start', for starting our
-#   cloud, 'cloud configure' to reconfigure our cloud after we change something,
-#   even cloud-ssh, to ssh directly into a node of our cloud."
+  while_saying "in poolparty the main binary is 'cloud'. we can do cloud help to see all of the available subcommands." do
+    cli "cloud help"
+  end
 
-#   pause 2
+  while_saying "as you can see here we have 'cloud-start', for starting our
+  cloud, 'cloud configure' to reconfigure our cloud after we change something,
+  even cloud-ssh, to ssh directly into a node of our cloud." do
+    pause 2
+    move to(86, 400)
+    pause 2
+    move to(72, 380)
+  end
 
-#   while_saying "what i'd like to do is, rather than just opening up the existing
-#   binaries, Im going to build poolparty-like binaries from the ground up. this
-#   way you can see how to do this on your own."
-# end
+  pause 2
+  type "q"
 
-cli "cd ~" 
-cli "mkdir -p poolparty-gsb-test/bin"
-cli "cd poolparty-gsb-test"
+  while_saying "what i'd like to do is, rather than just opening up the existing
+  binaries, Im going to build poolparty-like binaries from the ground up. this
+  way you can see how to do this on your own."
+end
+
+
+perform "entering poolpary" do
+  cli "cd ~" 
+  cli "mkdir -p poolparty-gsb-test/bin"
+  cli "cd poolparty-gsb-test"
+end
  
-# perform "creating primary" do
-#     while_saying "first we need to create our *primary* binary." do
-#       cli "vim bin/cloud"
-#       pause 2
-#       type_pre <<-eof 
-# i#!/usr/bin/env ruby
-# require 'git-style-binary/command'
-# eof
-#       cli ":w"
-#       cli ":e"
-#     end
+dont_perform "creating primary" do
+    while_saying "first we need to create our *primary* binary." do
+      cli "vim bin/cloud"
+      pause 2
+      type_pre <<-eof 
+i#!/usr/bin/env ruby
+require 'git-style-binary/command'
+eof
+      cli ":w"
+      cli ":e"
+    end
 
-#     while_saying "and thats it! thats all we need if we want the default functionality"  do
-#       cli ":x"
-#     end
-# end
+    while_saying "and thats it! thats all we need if we want the default functionality"  do
+      cli ":x"
+    end
+end
 
 pause 1
 
 # opt :cloud_name, "Name of the working cloud", :type => String, :default => nil
 
-perform "creating subcommands" do
+dont_perform "create cloud-start" do
   while_saying "now lets create cloud-start.
   we start by requiring git-style-binary/command, just like last time.
   now we open up a #command block.
@@ -146,7 +170,7 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   version "PoolParty cloud-start 0.0.1"  
   banner <<-\EOS
-Usage: \#{\$0} \#{all_options_string}
+Usage: cloud-start \#{all_options_string}
 
 EOS
 eof
@@ -167,19 +191,48 @@ eof
   end
 
   while_saying "you can add more options by calling 'opt' in the command block" do
-    # add more options
+    vim_line_after("short_")
+    vim_insert "  opt :name, \"the name of the cloud you are starting\", :type => String,:default => \"default\""
   end
+
   while_saying "git-style-binaries uses the gem trollop for the option parsing.
   trollop allows you to easily add validations and type conversions to options.
   see their website for information on the syntax" do
   end
+end
 
+dont_perform "running cloud-start" do
   while_saying "now lets run cloud-start -h" do
-    # run it
+    keystroke_using('t', :command) # go back to terminal
+    pause 1
+    cli "cd poolparty-gsb-test"
+    cli "chmod +x bin/*"
+    cli "./bin/cloud-start -h"
   end
+  pause 2
   while_saying "notice a few things here. we've got automatic coloring, a list of all of our flags, and a list of all of our options. trollop has even automatically created the short flags for us"  do
-    # move the mouse over the right areas
+    move to(36, 82)
+    pause 1
+    move to(123, 100)
+    pause 1
+    move to(279, 200)
+    pause 1
+    move to(96, 261)
+    move to(80, 521)
+    move to(96, 261)
+    pause 1
+    move to(53, 255)
+    move to(71, 259)
+    pause 1
+    move to(53, 255)
   end
+  pause 4
+  type "q"
+  keystroke_using('w', :command) # go back to terminal
+end
+
+
+dont_perform "creating cloud-ssh" do
 
   while_saying "i'd like to show you a few more features of gsb. first lets create one more simple binary - cloud ssh" do
 
@@ -199,7 +252,7 @@ require 'git-style-binary/command'
 GitStyleBinary.command do
   version "PoolParty cloud-ssh 0.0.1"  
   banner <<-\EOS
-Usage: \#{\$0} \#{all_options_string}
+Usage: cloud-ssh \#{all_options_string}
 
 EOS
 eof
@@ -209,11 +262,15 @@ eof
   opt :name,    "name of the cloud", :type => String
 
   run do |command|
-    puts "you're ssh'ing into \#{command[:name]}!"
+    puts "you are sshing into \#{command[:name]}!"
   end
 end
 eof
   end
+
+end
+
+perform "show help with both binaries" do
 
   while_saying "now we have two binaries, cloud-start and cloud-ssh" do
     cli "tree ."
@@ -228,6 +285,8 @@ eof
   end
 
 end
+
+exit
 
 perform "subcommand inherits primary" do
 
@@ -244,16 +303,25 @@ perform "subcommand inherits primary" do
 
   while_saying "if we add options to our primary these will be automatically inherited by the subcommands."
 
-  while_saying "here we add a "
+  while_saying "we want to be able to specify the name of our clouds.rb specfile in any of the subcommands. so all we need to do is add that to the primary"
 
+  while_saying "now if we run the subcommand -h, we see that the spec option is there"
+
+  while_saying "you can also specify callbacks in your primary if you want to. for instance, say you want to call something before the run block of each subcommand. simply define a before_run block in your primary"
+
+  while_saying "now we run our subcommand again. and you can see that it gets the options!"
 end
 
-
+perform "summary" do
+  while_saying "i hope this has been helpful for you. now go out and create your own git-style-binaries!"
+end
 
 def cleanup
   FileUtils.rm_rf(File.expand_path("~/poolparty-gsb-test/bin"))
 end
 
-cleanup
+at_exit do
+#  cleanup
+end
 
 # vim: ft=ruby
