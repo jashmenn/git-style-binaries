@@ -8,6 +8,12 @@
 plugin "terminal"
 plugin "keystack"
 
+def cleanup
+  FileUtils.rm_rf(File.expand_path("~/poolparty-gsb-test/bin"))
+end
+
+cleanup
+
 perform "Introduction" do
   launch "Terminal", at(10, 10, 800, 600)
   pause 1
@@ -20,7 +26,7 @@ end
 
 cli "cd #{ENV['POOLPARTY_SRC']}" 
 
-dont_perform "Describing Git Binaries" do
+perform "Describing Git Binaries" do
   pause 1
   while_saying "as you can see here, git has over one hundred binaries that all perform various functions." do
     type "git-"
@@ -83,7 +89,7 @@ dont_perform "Describing Git Binaries" do
 end
 
 
-dont_perform "Introducing PoolParty" do
+perform "Introducing PoolParty" do
   while_saying "we're going to be using PoolParty's binaries as an example on
   how to build git-style-binaries using this gem" do
   end
@@ -125,7 +131,7 @@ perform "entering poolpary" do
   cli "cd poolparty-gsb-test"
 end
  
-dont_perform "creating primary" do
+perform "creating primary" do
     while_saying "first we need to create our *primary* binary." do
       cli "vim bin/cloud"
       pause 2
@@ -146,7 +152,7 @@ pause 1
 
 # opt :cloud_name, "Name of the working cloud", :type => String, :default => nil
 
-dont_perform "create cloud-start" do
+perform "create cloud-start" do
   while_saying "now lets create cloud-start.
   we start by requiring git-style-binary/command, just like last time.
   now we open up a #command block.
@@ -186,7 +192,7 @@ eof
   end
 
   while_saying "the run block yields a command object. commands has an 'opts' attribute accessor, or you can just use brackets on 'command'" do
-    type ":0/putsDiputs \"verbose is: \#{command[:verbose]}\""
+    type ":0/putsDiputs \"verbose is: \#{command[:verbose].to_s}\""
     cli ":w"
   end
 
@@ -201,7 +207,7 @@ eof
   end
 end
 
-dont_perform "running cloud-start" do
+perform "running cloud-start" do
   while_saying "now lets run cloud-start -h" do
     keystroke_using('t', :command) # go back to terminal
     pause 1
@@ -232,7 +238,7 @@ dont_perform "running cloud-start" do
 end
 
 
-dont_perform "creating cloud-ssh" do
+perform "creating cloud-ssh" do
 
   while_saying "i'd like to show you a few more features of gsb. first lets create one more simple binary - cloud ssh" do
 
@@ -270,7 +276,7 @@ eof
 
 end
 
-dont_perform "show help with both binaries" do
+perform "show help with both binaries" do
 
   while_saying "now we have two binaries, cloud-start and cloud-ssh" do
     cli "tree ."
@@ -294,7 +300,7 @@ dont_perform "show help with both binaries" do
 
 end
 
-dont_perform "modify cloud primary" do
+perform "modify cloud primary" do
 
   while_saying "notice that if we do cloud help start. we see that it already
   has a number of options. these options come from the default binary options." do
@@ -330,23 +336,28 @@ dont_perform "modify cloud primary" do
   now when we want to customize the primary we need to do a bit more work.
   " do 
     cli "vim bin/cloud"
-    pause 1
+     pause 2
     type "jj"
+    type 'o' + ''
     vim_insert <<-eof
 GitStyleBinary.primary do
   version "PoolParty cloud command"  
 banner <<-\EOS
 eof
     vim_insert <<-eof
-Usage: cloud \#{all_options_string} COMMAND [ARGS]
+Usage: cloud \\\#{all_options_string} COMMAND [ARGS]
 
 The cloud subcommands commands are:
-  \#{GitStyleBinary.pretty_known_subcommands(:short).join("  ")}
+  \\\#{GitStyleBinary.pretty_known_subcommands(:short).join("  ")}
 EOS
   opt :spec, "The name of the clouds.rb file", :type => String
+
+run do
+  end
 end
 eof
-    type ":x"
+    pause 2
+    type ":x"
   end
 end
 
@@ -355,30 +366,41 @@ perform "show subcommand opts" do
   while_saying "now if we run the subcommand -h, we see that the spec option is there" do
     cli "./bin/cloud-start -h"
     pause 1
+    shake 61, 259
+    pause 1
+    type "q"
   end
 
   while_saying "you can also specify callbacks in your primary if you want to.
   for instance, say you want to call something before the run block of each
     subcommand. simply define a before_run block in your primary" do
+
+     cli "vim bin/cloud"
+     pause 2
+     vim_line_after("opt ")
+     vim_insert <<-eof
+before_run do
+  puts "this happened before run"
+end
+eof
+     pause 2
+     type ":x"
+    
   end
 
   while_saying "now we run our subcommand again. and you can see that it gets the options!" do
+    cli "./bin/cloud-start"
   end
 
 end
-
-exit
 
 perform "summary" do
   while_saying "i hope this has been helpful for you. now go out and create your own git-style-binaries!"
 end
 
-def cleanup
-  FileUtils.rm_rf(File.expand_path("~/poolparty-gsb-test/bin"))
-end
 
 at_exit do
-#  cleanup
+  cleanup
 end
 
 # vim: ft=ruby
