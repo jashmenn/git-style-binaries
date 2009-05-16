@@ -270,47 +270,78 @@ eof
 
 end
 
-perform "show help with both binaries" do
+dont_perform "show help with both binaries" do
 
   while_saying "now we have two binaries, cloud-start and cloud-ssh" do
     cli "tree ."
   end
 
   while_saying "one of the cool things about gsb is that it will automatically pick up these files when you run the help commands" do
-    cli "cloud -h"
+    cli "./bin/cloud -h"
   end
 
   while_saying "see, here we have both cloud-start and cloud-ssh, along with their short descriptions, which are automatically loaded from their respective files" do
-    # move mouse
+    pause 0.5 
+    shake 46, 401
+    pause 0.5
+    shake 49, 338
+    pause 0.5
+    move to(88, 291)
+    move to(354, 297)
+    pause 1
+    cli 'q'
+  end
+
+end
+
+perform "subcommand inherits primary" do
+
+  while_saying "notice that if we do cloud help start. we see that it already
+  has a number of options. these options come from the default binary options." do
+    cli "./bin/cloud help start"
+    pause 1
+    move to(123, 266)
+    pause 1
+    shake 116, 431
+    pause 1
+    move to(99, 515)
+    type 'q'
+  end
+
+  while_saying "gsb's get their options from three places 1) the default in code 2) the primary and 3) the subcommand itself" do
+    type "1) default options (in code)"
+    pause 0.5
+    keystroke_using('u', :control)
+    type "2) primary (ex: ./bin/cloud)"
+    pause 0.5
+    keystroke_using('u', :control)
+    type "3) subcommand (./bin/cloud-start)"
+    pause 0.5
+    keystroke_using('u', :control)
+  end
+
+  while_saying "if we add options to our primary these will be automatically inherited by the subcommands." do
+  end
+
+  while_saying "we want to be able to specify the name of our clouds.rb
+  specfile in any of the subcommands. so all we need to do is add that to the
+  primary" do 
+  end
+
+  while_saying "now if we run the subcommand -h, we see that the spec option is there" do
+  end
+
+  while_saying "you can also specify callbacks in your primary if you want to.
+  for instance, say you want to call something before the run block of each
+    subcommand. simply define a before_run block in your primary" do
+  end
+
+  while_saying "now we run our subcommand again. and you can see that it gets the options!" do
   end
 
 end
 
 exit
-
-perform "subcommand inherits primary" do
-
-  # adding options to primary gives options to the secondary
-  # adding before_run blocks to the primary
-  # primary -h shows the list of subcommands
-  # short theme
-
-  while_saying "notice that if we do cloud help start. we see that it already has a number of options. these options come from the default binary options. " do
-  end
-
-  while_saying "gsb's get their options from three places 1) the default in code 2) the primary and 3) the subcommand itself" do
-  end
-
-  while_saying "if we add options to our primary these will be automatically inherited by the subcommands."
-
-  while_saying "we want to be able to specify the name of our clouds.rb specfile in any of the subcommands. so all we need to do is add that to the primary"
-
-  while_saying "now if we run the subcommand -h, we see that the spec option is there"
-
-  while_saying "you can also specify callbacks in your primary if you want to. for instance, say you want to call something before the run block of each subcommand. simply define a before_run block in your primary"
-
-  while_saying "now we run our subcommand again. and you can see that it gets the options!"
-end
 
 perform "summary" do
   while_saying "i hope this has been helpful for you. now go out and create your own git-style-binaries!"
