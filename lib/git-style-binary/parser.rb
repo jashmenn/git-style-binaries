@@ -97,7 +97,6 @@ class Parser < Trollop::Parser
  
       stream.puts
 
-#       banner = wrap(colorize_known_words(eval(%Q["#{@banner}"])) + "\n", :prefix => leftcol_start) if @banner # lazy banner
       banner = colorize_known_words_array(wrap(eval(%Q["#{@banner}"]) + "\n", :prefix => leftcol_start)) if @banner # lazy banner
       stream.puts banner
 
@@ -151,10 +150,11 @@ class Parser < Trollop::Parser
 
     leftcol_width = left.values.map { |s| s.length }.max || 0
     rightcol_start = leftcol_width + 6 # spaces
+    leftcol_start = 0
 
     unless @order.size > 0 && @order.first.first == :text
       stream.puts "#@version\n" if @version
-      stream.puts eval(%Q["#{@banner}"]) + "\n" if @banner # lazy banner
+      stream.puts colorize_known_words_array(wrap(eval(%Q["#{@banner}"]) + "\n", :prefix => leftcol_start)) if @banner # jit banner
       stream.puts "Options:"
     else
       stream.puts "#@banner\n" if @banner
