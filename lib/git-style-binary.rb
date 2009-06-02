@@ -9,7 +9,7 @@ $:.unshift(File.dirname(__FILE__) + "/../vendor/gems")
   rescue
     puts "There was an error loading #{library}. Try running git submodule init && git submodule update to correct the problem"    
     require 'trollop'
-  end    
+  end
 end
 
 require 'ext/core'
