@@ -111,9 +111,9 @@ perform "Introducing PoolParty" do
   cloud, 'cloud configure' to reconfigure our cloud after we change something,
   even cloud-ssh, to ssh directly into a node of our cloud." do
     pause 2
-    move to(86, 400)
+    shake 37, 499
     pause 2
-    move to(72, 380)
+    shake 37, 219
   end
 
   pause 2
@@ -219,20 +219,18 @@ perform "running cloud-start" do
   end
   pause 2
   while_saying "notice a few things here. we've got automatic coloring, a list of all of our flags, and a list of all of our options. trollop has even automatically created the short flags for us"  do
-    move to(36, 82)
+    move to(39, 178)
     pause 1
-    move to(123, 100)
+    move to(103, 202)
     pause 1
-    move to(279, 200)
+    move to(79, 357)
+    move to(90, 522)
+    move to(79, 357)
     pause 1
-    move to(96, 261)
-    move to(80, 521)
-    move to(96, 261)
+    move to(203, 299)
+    move to(470, 300)
     pause 1
-    move to(53, 255)
-    move to(71, 259)
-    pause 1
-    move to(53, 255)
+    shake 54, 441
   end
   pause 3
   type "q"
@@ -374,7 +372,7 @@ perform "show subcommand opts" do
   while_saying "now if we run the subcommand -h, we see that the spec option is there" do
     cli "./bin/cloud-start -h"
     pause 1
-    shake 61, 259
+    shake 54, 342
     pause 1
     type "q"
   end
