@@ -84,7 +84,7 @@ class RunningBinariesTest < Test::Unit::TestCase
 
       %w(before after).each do |time|
         should "run the callback #{time}_run}" do
-          assert @stdout.match /#{time}_run command/
+          assert @stdout.match(/#{time}_run command/)
         end
       end      
     end
@@ -94,7 +94,7 @@ class RunningBinariesTest < Test::Unit::TestCase
 
       %w(before after).each do |time|
         should "not run the callback #{time}_run" do
-          assert_nil @stdout.match /#{time}_run command/
+          assert_nil @stdout.match(/#{time}_run command/)
         end
       end      
     end
