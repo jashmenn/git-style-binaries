@@ -9,6 +9,12 @@ This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 
     gem install jashmenn-git-style-binaries --source=http://gems.github.com
 
+## Screencast
+
+Checkout <a href="http://www.xcombinator.com/movies/git-style-binaries.mov">the new screencast!</a>
+
+<a href="http://www.xcombinator.com/movies/git-style-binaries.mov"><img src="http://github.com/jashmenn/git-style-binaries/tree/master/doc/gsb-screencast.png?raw=true" width='880' height='784' border=0></a>
+
 ## Try it out
 
     cd `gem env gemdir`/gems/jashmenn-git-style-binaries-0.1.4/test/fixtures
