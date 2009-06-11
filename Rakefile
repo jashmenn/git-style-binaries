@@ -16,7 +16,7 @@ begin
     gem.add_dependency 'thoughtbot-shoulda' # for running the tests
 
     excludes = /(README\.html)/
-    gem.files = (FileList["[A-Z]*.*", "{bin,examples,generators,lib,rails,spec,test}/**/*", 'Rakefile', 'LICENSE*']).delete_if{|f| f =~ excludes}
+    gem.files = (FileList["[A-Z]*.*", "{bin,examples,generators,lib,rails,spec,test,vendor}/**/*", 'Rakefile', 'LICENSE*']).delete_if{|f| f =~ excludes}
     gem.extra_rdoc_files = FileList["README*", "ChangeLog*", "LICENSE*"].delete_if{|f| f =~ excludes}
   end
 rescue LoadError

@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{git-style-binaries}
-  s.version = "0.1.7"
+  s.version = "0.1.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nate Murray"]
-  s.date = %q{2009-05-15}
+  s.date = %q{2009-06-11}
   s.description = %q{Ridiculously easy git-style binaries}
   s.email = %q{nate@natemurray.com}
   s.extra_rdoc_files = [
@@ -35,7 +35,16 @@ Gem::Specification.new do |s|
     "test/git_style_binary_test.rb",
     "test/running_binaries_test.rb",
     "test/shoulda_macros/matching_stdio.rb",
-    "test/test_helper.rb"
+    "test/test_helper.rb",
+    "vendor/gems/trollop/FAQ.txt",
+    "vendor/gems/trollop/History.txt",
+    "vendor/gems/trollop/Manifest.txt",
+    "vendor/gems/trollop/README.txt",
+    "vendor/gems/trollop/Rakefile",
+    "vendor/gems/trollop/lib/trollop.rb",
+    "vendor/gems/trollop/release-script.txt",
+    "vendor/gems/trollop/test/test_trollop.rb",
+    "vendor/gems/trollop/www/index.html"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/jashmenn/git-style-binaries}
