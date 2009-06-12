@@ -6,9 +6,12 @@ $:.unshift(File.dirname(__FILE__) + "/../vendor/gems")
 %w(trollop).each do |library|
   begin
     require "#{library}/lib/#{library}"
-  rescue
-    puts "There was an error loading #{library}. Try running git submodule init && git submodule update to correct the problem"    
-    require 'trollop'
+  rescue LoadError
+    begin
+      require 'trollop'
+    rescue LoadError
+      puts "There was an error loading #{library}. Try running git submodule init && git submodule update to correct the problem"
+    end
   end
 end
 
