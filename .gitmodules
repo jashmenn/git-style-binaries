@@ -1,3 +1,0 @@
-[submodule "vendor/gems/trollop"]
-	path = vendor/gems/trollop
-	url = git://github.com/jashmenn/trollop.git
