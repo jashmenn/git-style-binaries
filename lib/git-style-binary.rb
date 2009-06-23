@@ -2,10 +2,9 @@ $:.unshift(File.dirname(__FILE__))
 require 'rubygems'
 
 # Load the vendor gems
-$:.unshift(File.dirname(__FILE__) + "/../vendor/gems")
 %w(trollop).each do |library|
   begin
-    require "#{library}/lib/#{library}"
+    require "#{library}"
   rescue
     puts "There was an error loading #{library}. Try running git submodule init && git submodule update to correct the problem"    
     require 'trollop'
