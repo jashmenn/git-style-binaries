@@ -13,7 +13,7 @@ begin
     gem.homepage = "http://github.com/jashmenn/git-style-binaries"
     gem.authors = ["Nate Murray"]
     gem.add_dependency 'trollop'
-    gem.add_dependency 'thoughtbot-shoulda' # for running the tests
+    gem.add_dependency 'shoulda' # for running the tests
 
     excludes = /(README\.html)/
     gem.files = (FileList["[A-Z]*.*", "{bin,examples,generators,lib,rails,spec,test,vendor}/**/*", 'Rakefile', 'LICENSE*']).delete_if{|f| f =~ excludes}
