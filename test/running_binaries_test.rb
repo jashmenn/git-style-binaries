@@ -206,7 +206,7 @@ class RunningBinariesTest < Test::Unit::TestCase
         end
 
         should "have a local (not default) version string" do
-          output_matches /0\.0\.2 \(c\) 2009/
+          output_matches /0\.0\.2 \(c\) #{Time.now.year}/
         end
       end
     end
