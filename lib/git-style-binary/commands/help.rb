@@ -9,7 +9,7 @@ module GitStyleBinary
           # this is slightly ugly b/c it has to muck around in the internals to
           # get information about commands other than itself. This isn't a
           # typical case
-          def educate_about_command(name)
+          self.class.send :define_method, :educate_about_command do |name|
             load_all_commands
             if GitStyleBinary.known_commands.has_key?(name)
               cmd = GitStyleBinary.known_commands[name]
