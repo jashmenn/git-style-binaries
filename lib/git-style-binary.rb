@@ -1,8 +1,6 @@
 $:.unshift(File.dirname(__FILE__))
 require 'rubygems'
 
-# Load the vendor gems
-$:.unshift(File.dirname(__FILE__) + "/../vendor/gems")
 %w(trollop).each do |library|
   begin
     require "#{library}/lib/#{library}"
@@ -10,7 +8,7 @@ $:.unshift(File.dirname(__FILE__) + "/../vendor/gems")
     begin
       require 'trollop'
     rescue LoadError
-      puts "There was an error loading #{library}. Try running 'gem install #{library}' to correct the problem" 
+      puts "There was an error loading #{library}. Try running 'gem install #{library}' to correct the problem"
     end
   end
 end
@@ -21,7 +19,7 @@ require 'git-style-binary/autorunner'
 Dir[File.dirname(__FILE__) + "/git-style-binary/helpers/*.rb"].each {|f|  require f}
 
 module GitStyleBinary
- 
+
   class << self
     include Helpers::NameResolver
     attr_accessor :current_command
@@ -47,7 +45,7 @@ module GitStyleBinary
     def load_primary
       unless @loaded_primary
         @loaded_primary = true
-        primary_file = File.join(binary_directory, basename) 
+        primary_file = File.join(binary_directory, basename)
         load primary_file
 
         if !GitStyleBinary.primary_command # you still dont have a primary load a default
@@ -76,7 +74,7 @@ module GitStyleBinary
 
     # UGLY eek
     attr_accessor :name_of_command_being_loaded
-   
+
   end
 end
 
