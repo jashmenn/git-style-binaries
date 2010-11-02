@@ -179,6 +179,8 @@ module GitStyleBinary
       GitStyleBinary.primary_name == name ? GitStyleBinary.primary_name : GitStyleBinary.primary_name + "-" + name
     end
 
+    # die basically ripped out of trollop, because it can't be called
+    # without first calling 'Trollop.options'
     def die arg, msg=nil
       if msg
         $stderr.puts "Error: #{arg} - #{msg}."
