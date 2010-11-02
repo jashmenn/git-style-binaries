@@ -62,7 +62,7 @@ class RunningBinariesTest < Test::Unit::TestCase
     end
     should "be able to require 'primary' and run just fine"
   end
-  
+
   context "when running with an action" do
     # should be the same for both formats
     ["wordpress-categories", "wordpress categories"].each do |bin_format|
@@ -77,7 +77,7 @@ class RunningBinariesTest < Test::Unit::TestCase
       end
     end
   end
-  
+
   context "callbacks" do
     context "on a binary" do
       setup { @stdout, @stderr = bin("wordpress") }
@@ -86,9 +86,9 @@ class RunningBinariesTest < Test::Unit::TestCase
         should "run the callback #{time}_run}" do
           assert @stdout.match(/#{time}_run command/)
         end
-      end      
+      end
     end
-    
+
     context "on help" do
       setup { @stdout, @stderr = bin("wordpress -h") }
 
@@ -96,11 +96,11 @@ class RunningBinariesTest < Test::Unit::TestCase
         should "not run the callback #{time}_run" do
           assert_nil @stdout.match(/#{time}_run command/)
         end
-      end      
+      end
     end
-    
+
   end
-  
+
 
   context "when running the subcommand" do
     # should be the same for both formats
@@ -110,7 +110,7 @@ class RunningBinariesTest < Test::Unit::TestCase
         context "with no options" do
           setup { @stdout, @stderr = bin("#{bin_format}") }
           should "fail because title is required" do
-            output_matches /Error: option 'title' must be specified.\s*Try --help for help/m
+            output_matches /Error: option --title must be specified.\s*Try --help for help/m
           end
         end
 
@@ -136,7 +136,7 @@ class RunningBinariesTest < Test::Unit::TestCase
           setup { @stdout, @stderr = bin("#{bin_format} --title='glendale' --type=yaml") }
 
           should "die on invalid options"  do
-            output_matches /argument \-\-type type must be one of \[html\|xhtml\|text\]/
+            output_matches /type must be one of \[html\|xhtml\|text\]/
           end
         end
 
@@ -144,9 +144,9 @@ class RunningBinariesTest < Test::Unit::TestCase
     end # end #each
   end
 
-  ["wordpress help post", "wordpress post -h"].each do |format| 
+  ["wordpress help post", "wordpress post -h"].each do |format|
     context "when calling '#{format}'" do
-      
+
       setup { @stdout, @stderr = bin(format) }
       should "have a description" do
         output_matches /create a blog post/

@@ -55,7 +55,7 @@ module GitStyleBinary
     end
 
     def parser
-      @parser ||= begin 
+      @parser ||= begin
                     p = Parser.new
                     p.command = self
                     p
@@ -67,11 +67,11 @@ module GitStyleBinary
     end
 
     def run
-      GitStyleBinary.load_primary    unless is_primary?      
+      GitStyleBinary.load_primary    unless is_primary?
       GitStyleBinary.load_subcommand if is_primary? && running_subcommand?
       load_all_parser_constraints
       @opts = process_args_with_subcmd
-      call_parser_run_block      
+      call_parser_run_block
       self
     end
 
@@ -96,7 +96,7 @@ module GitStyleBinary
       parser.consume_all(GitStyleBinary.primary_command.constraints)
     end
 
-    def load_parser_local_constraints 
+    def load_parser_local_constraints
       cur = GitStyleBinary.current_command # see, why isn't 'this' current_command?
 
       unless self.is_primary? && cur == self
@@ -109,10 +109,10 @@ module GitStyleBinary
 
     def call_parser_run_block
       runs = GitStyleBinary.current_command.parser.runs
-      
+
       parser.run_callbacks(:before_run, self)
       parser.runs.last.call(self) # ... not too happy with this
-      parser.run_callbacks(:after_run, self)      
+      parser.run_callbacks(:after_run, self)
     end
 
     def process_args_with_subcmd(args = ARGV, *a, &b)
@@ -124,7 +124,7 @@ module GitStyleBinary
 
     # TOOooootally ugly! why? bc load_parser_local_constraints doesn't work
     # when loading the indivdual commands because it depends on
-    # #current_command. This really sucks and is UGLY. 
+    # #current_command. This really sucks and is UGLY.
     # the todo is to put in 'load_all_parser_constraints' and this works
     def process_parser!
       # load_all_parser_constraints
@@ -135,7 +135,7 @@ module GitStyleBinary
       parser.consume_all(constraints)
 
       # hack
-      parser.consume { 
+      parser.consume {
         opt :version, "Print version and exit" if @version unless @specs[:version] || @long["version"]
         opt :help, "Show this message" unless @specs[:help] || @long["help"]
         resolve_default_short_options
@@ -170,7 +170,7 @@ module GitStyleBinary
       parser.leftovers
     end
 
-    def short_desc 
+    def short_desc
       parser.short_desc
     end
 
@@ -180,11 +180,15 @@ module GitStyleBinary
     end
 
     def die arg, msg=nil
-      p = parser # create local copy
-      Trollop.instance_eval { @p = p }
-      Trollop::die(arg, msg)
+      if msg
+        $stderr.puts "Error: #{arg} - #{msg}."
+      else
+        $stderr.puts "Error: #{arg}."
+      end
+      $stderr.puts "Try --help for help."
+      exit(-1)
     end
-    
+
     # Helper to return the option
     def [](k)
       opts[k]
