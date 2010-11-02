@@ -1,17 +1,6 @@
 $:.unshift(File.dirname(__FILE__))
 require 'rubygems'
-
-%w(trollop).each do |library|
-  begin
-    require "#{library}/lib/#{library}"
-  rescue LoadError
-    begin
-      require 'trollop'
-    rescue LoadError
-      puts "There was an error loading #{library}. Try running 'gem install #{library}' to correct the problem"
-    end
-  end
-end
+require 'trollop'
 
 require 'ext/core'
 require 'ext/colorize'
