@@ -2,19 +2,22 @@ require 'git-style-binary'
 
 module GitStyleBinary
   def self.command(&block)
-    returning Command.new(:constraints => [block]) do |c|
-      c.name ||= (GitStyleBinary.name_of_command_being_loaded || GitStyleBinary.current_command_name)
+    Command.new(:constraints => [block]).tap do |c|
+      c.name ||= (GitStyleBinary.name_of_command_being_loaded ||
+                  GitStyleBinary.current_command_name)
       GitStyleBinary.known_commands[c.name] = c
 
-      if !GitStyleBinary.current_command || GitStyleBinary.current_command.is_primary?
+      if !GitStyleBinary.current_command ||
+          GitStyleBinary.current_command.is_primary?
         GitStyleBinary.current_command = c
       end
     end
   end
 
   def self.primary(&block)
-    returning Primary.new(:constraints => [block]) do |c|
-      c.name ||= (GitStyleBinary.name_of_command_being_loaded || GitStyleBinary.current_command_name)
+    Primary.new(:constraints => [block]).tap do |c|
+      c.name ||= (GitStyleBinary.name_of_command_being_loaded ||
+                  GitStyleBinary.current_command_name)
       GitStyleBinary.known_commands[c.name] = c
 
       GitStyleBinary.primary_command = c unless GitStyleBinary.primary_command
@@ -100,9 +103,10 @@ module GitStyleBinary
       cur = GitStyleBinary.current_command # see, why isn't 'this' current_command?
 
       unless self.is_primary? && cur == self
-        # TODO TODO - the key lies in this function. figure out when you hav emore engergy
-        # soo UGLY. see #process_parser! unify with that method
-        # parser.consume_all(constraints) rescue ArgumentError
+        # TODO - the key lies in this function. figure out when you
+        # have more energy soo UGLY. see #process_parser! unify with
+        # that method parser.consume_all(constraints) rescue
+        # ArgumentError
         parser.consume_all(cur.constraints)
       end
     end

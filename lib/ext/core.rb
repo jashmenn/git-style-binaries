@@ -1,8 +1,9 @@
 class Object
-  def returning(value)
-    yield(value)
-    value
-  end unless Object.respond_to?(:returning)
+  # ruby 1.8.6 backport of tap
+  def tap
+    yield(self)
+    self
+  end unless Object.respond_to?(:tap)
 end
 
 class Symbol
