@@ -142,7 +142,7 @@ module GitStyleBinary
       parser.consume {
         opt :version, "Print version and exit" if @version unless @specs[:version] || @long["version"]
         opt :help, "Show this message" unless @specs[:help] || @long["help"]
-        resolve_default_short_options
+        resolve_default_short_options!
       } # hack
     end
 
