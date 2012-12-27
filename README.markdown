@@ -13,7 +13,7 @@ This gem uses [`trollop`](http://trollop.rubyforge.org/) for option parsing
 
 Checkout <a href="http://www.xcombinator.com/movies/git-style-binaries.mov">the new screencast!</a>
 
-<a href="http://www.xcombinator.com/movies/git-style-binaries.mov"><img src="http://github.com/jashmenn/git-style-binaries/tree/master/doc/gsb-screencast.png?raw=true" width='880' height='784' border=0></a>
+<a href="http://www.xcombinator.com/movies/git-style-binaries.mov"><img src="https://raw.github.com/jashmenn/git-style-binaries/master/doc/gsb-screencast.png" width='880' height='784' border=0></a>
 
 ## Try it out
 
